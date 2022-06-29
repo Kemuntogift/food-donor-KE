@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "637052480904",
+    "project_id": "fooddonorke",
+    "storage_bucket": "fooddonorke.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637052480904:android:60558815b2bb2fc7b59e3d",
+        "android_client_info": {
+          "package_name": "com.pro.fooddonorke"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637052480904-5mj23so1vcbrkqfbufrqs7ahbtujfs4o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA78tI-29LcOfDWg50ykKkdXCKyldK7owg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637052480904-5mj23so1vcbrkqfbufrqs7ahbtujfs4o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
