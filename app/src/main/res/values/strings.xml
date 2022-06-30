@@ -1,3 +1,6 @@
 <resources>
   <string name="app_name">FoodDonorKE</string>
+  <string name="org_name">Organization name</string>
+  <string name="org_type">Organization type</string>
+  <string name="location">Location</string>
 </resources>
