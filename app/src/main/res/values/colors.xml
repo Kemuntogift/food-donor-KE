@@ -7,4 +7,9 @@
   <color name="teal_700">#FF018786</color>
   <color name="black">#FF000000</color>
   <color name="white">#FFFFFFFF</color>
+  <color name="food_donor_blue">#52B7E9</color>
+  <color name="food_donor_darker_blue">#146CA4</color>
+  <color name="food_donor_white">#FOF5F8</color>
+  <color name="food_donor_black">#01080C</color>
+  <color name="food_donor_grey">#4D757575</color>
 </resources>
