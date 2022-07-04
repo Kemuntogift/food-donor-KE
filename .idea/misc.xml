@@ -13,6 +13,11 @@
         <entry key="app/src/main/res/drawable/mybuttons.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_donation.xml" value="0.14" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14764492753623187" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_organization_detail.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/layout/activity_organization_list.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_organization_detail.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/item_organization_list.xml" value="0.33" />
         <entry key="app/src/main/res/menu/logout_menu.xml" value="0.17708333333333334" />
       </map>
@@ -23,5 +28,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>
