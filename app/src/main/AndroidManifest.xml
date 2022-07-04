@@ -17,10 +17,15 @@
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
-            android:exported="false" />
+            android:name=".ui.SplashScreen"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".Donation"
             android:name=".ui.DonationActivity"
             android:exported="false" />
         <activity
@@ -35,13 +40,7 @@
             android:exported="false"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"/>
         <activity
             android:name=".ui.HomeActivity"
             android:exported="false"

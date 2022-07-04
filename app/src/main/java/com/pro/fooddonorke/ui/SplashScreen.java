@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pro.fooddonorke.ProfileActivity;
 import com.pro.fooddonorke.R;
 
@@ -17,7 +18,7 @@ public class SplashScreen extends AppCompatActivity {
     ImageView splashImg;
     TextView title;
     TextView statement;
-    Button arrowButton;
+    FloatingActionButton arrowButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,4 +40,3 @@ public class SplashScreen extends AppCompatActivity {
 
         }
     }
-}

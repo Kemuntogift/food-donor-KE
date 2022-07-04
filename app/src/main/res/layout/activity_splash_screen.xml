@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:padding="2dp"
-    tools:context=".SplashScreen">
+    tools:context=".ui.SplashScreen">
 
     <ImageView
         android:id="@+id/splashImg"
@@ -15,23 +15,29 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.333"
         app:srcCompat="@drawable/splashimage"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="265dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="284dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Food DonorKE"
         android:textColor="#FFFFFF"
         android:textSize="39sp"
         android:textStyle="bold"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="73dp"
-        tools:layout_editor_absoluteY="365dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
 
     <TextView
         android:id="@+id/statement"
@@ -42,10 +48,13 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="474dp" />
-
+        app:layout_constraintBottom_toTopOf="@+id/arrowButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.566"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0.658"
+        tools:ignore="MissingConstraints" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/arrowButton"
