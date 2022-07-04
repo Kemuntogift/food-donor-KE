@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_donation.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="app/src/main/res/color/dark_bg_stroke_color.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/dark_bg_stroke_color.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/ic_baseline_business.xml" value="0.144" />
+        <entry key="app/src/main/res/layout/activity_donation.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/activity_organization_detail.xml" value="0.17135416666666667" />
-        <entry key="app/src/main/res/layout/activity_organization_list.xml" value="0.17135416666666667" />
-        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_organization_detail.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/layout/activity_organization_list.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_organization_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_organization_list.xml" value="0.33" />
       </map>
     </option>
