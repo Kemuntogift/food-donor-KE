@@ -37,4 +37,9 @@
   <string name="organizations">Organizations</string>
   <string name="donations">Donations</string>
   <string name="ngo">NGOs</string>
+  <string name="content_desc_instagram">Instagram account</string>
+  <string name="content_desc_email">Email address</string>
+  <string name="authenticating">Authenticating</string>
+  <string name="welcome">Welcome %1$s,</string>
+  <string name="welcome_subtitle">We rise by lifting others</string>
 </resources>
