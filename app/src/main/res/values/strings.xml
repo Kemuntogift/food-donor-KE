@@ -1,7 +1,8 @@
 <resources>
-  <string name="app_name">FoodDonorKE</string>
-  <string name="org_name">Organization name</string>
-  <string name="org_type">Organization type</string>
-  <string name="location">Location</string>
-  <string name="content_desc_location">Location icon</string>
+    <string name="app_name">FoodDonorKE</string>
+    <string name="org_name">Organization name</string>
+    <string name="org_type">Organization type</string>
+    <string name="location">Location</string>
+    <string name="content_desc_location">Location icon</string>
+    <string name="home">Home</string>
 </resources>

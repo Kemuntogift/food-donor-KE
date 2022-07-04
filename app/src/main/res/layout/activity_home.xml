@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="?actionBarSize"
+           android:background="@color/food_donor_darker_blue">
+
+           <TextView
+               android:id="@+id/homeId"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerVertical="true"
+               android:gravity="top"
+               android:padding="15dp"
+               android:text="@string/home"
+               android:textColor="@color/white"
+               android:textSize="18sp" />
+
+           <ImageView
+               android:id="@+id/logoutId"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"
+               android:padding="15dp"
+               android:src="@drawable/ic_baseline_logout" />
+
+
+       </RelativeLayout>
+
+       <TextView
+           android:id="@+id/welcomeId"
+           style="@style/BoldTextStyle"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="23dp"
+           android:layout_marginTop="32dp"
+           android:text="Welcome Kev,"
+           android:textColor="@color/food_donor_darker_blue" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="23dp"
+           android:text="We rise by lifting others"
+           style="@style/NormalTextStyle"/>
+
+       <androidx.cardview.widget.CardView
+           style="@style/CardViewStyle"
+           android:layout_width="match_parent"
+           android:layout_height="159dp"
+           android:layout_margin="17dp"
+           android:elevation="5dp"
+           android:padding="15dp"
+           app:cardElevation="5dp" >
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+               <ImageView
+                   android:id="@+id/profilePicId"
+                   android:layout_width="75dp"
+                   android:layout_height="75dp"
+                   android:layout_marginLeft="19dp"
+                   android:layout_marginTop="26dp"
+                   android:src="@drawable/profile" />
+
+               <TextView
+                   style="@style/NormalTextStyle"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="130dp"
+                   android:layout_marginTop="23dp"
+                   android:text="View your profile
+                   details" />
+
+               <Button
+                   android:id="@+id/profileButtonId"
+                   style="@style/ButtonStyle"
+                   android:layout_width="150dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="130dp"
+                   android:layout_marginTop="62dp"
+                   android:text="Profile"
+                   android:textColor="@color/white" />
+
+
+           </RelativeLayout>
+
+
+       </androidx.cardview.widget.CardView>
+
+       <TextView
+           style="@style/BolderTextStyle"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="23dp"
+           android:text="Donation requests"
+           android:textColor="@color/food_donor_black"
+           android:layout_marginTop="16dp"/>
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/listId"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="23dp"
+           android:layout_marginTop="16dp"
+           tools:listitem="@layout/item_organization_list">
+
+       </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+   </LinearLayout>
+
+
+</ScrollView>
