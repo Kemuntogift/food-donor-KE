@@ -1,81 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".ui.Donation">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/padding_1">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="150dp"
-            android:gravity="center"
+            android:layout_width="@dimen/larger_margin_3"
+            android:layout_height="@dimen/larger_margin_3"
             android:background="@drawable/mybuttons"
-            android:layout_height="150dp">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:text="2"
-                android:textColor="@color/food_donor_darker_blue"
-                android:textStyle="bold"
-                android:textSize="30sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="2"
+                android:textColor="@color/food_donor_darker_blue"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:text="NGOs"
-                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ngo"
                 android:textColor="@color/food_donor_darker_blue"
                 android:textSize="23sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
+
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="150dp"
-            android:gravity="center"
-            android:layout_marginLeft="60dp"
+            android:layout_width="@dimen/larger_margin_3"
+            android:layout_height="@dimen/larger_margin_3"
+            android:layout_marginStart="@dimen/larger_margin_2"
             android:background="@drawable/mybuttons"
-            android:layout_height="150dp">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:text="2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2"
                 android:textColor="@color/food_donor_darker_blue"
-                android:textStyle="bold"
                 android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textStyle="bold" />
 
             <TextView
-                android:text="Donations"
-                android:textStyle="bold"
-                android:textColor="@color/food_donor_darker_blue"
-                android:textSize="23sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/BolderTextStyle"
+                android:layout_height="wrap_content"
+                tools:text="@string/donations"
+                android:textColor="@color/food_donor_darker_blue" />
 
         </LinearLayout>
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView"
+        style="@style/BolderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Organizations"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:text="@string/organizations"
+        android:layout_marginTop="@dimen/triple_margin"
         android:textColor="@color/food_donor_black"
-        android:textSize="23sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
@@ -83,14 +88,16 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="16dp">
+        android:layout_marginTop="@dimen/triple_margin"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewDonation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            tools:listitem="@layout/item_organization_list" />
 
         <ProgressBar
             android:id="@+id/progressBarD"
@@ -108,38 +115,5 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/food_donor_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
-        app:layout_constraintVertical_bias="1.0">
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/ic_baseline_home" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="80dp"
-            android:background="@drawable/ic_baseline_business" />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_marginLeft="80dp"
-            android:layout_height="60dp"
-            android:background="@drawable/heart_freepik" />
-
-
-    </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
