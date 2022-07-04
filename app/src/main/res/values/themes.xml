@@ -80,4 +80,11 @@
   <style name="RoundedCornersStyle">
     <item name="cornerSize">10%</item>
   </style>
+
+  <style name="TextInputLayoutStyle2" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="shapeAppearanceOverlay">@style/TextInputLayoutShapeAppearance</item>
+    <item name="android:textAppearance">@style/NormalTextStyle</item>
+  </style>
+
+
 </resources>
