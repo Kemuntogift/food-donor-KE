@@ -47,17 +47,34 @@
     <item name="android:textSize">@dimen/normal_font_size</item>
   </style>
 
-  <style name="ButtonStyle" parent="Widget.Material3.Button">
+  <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
     <item name="backgroundTint">@color/food_donor_blue</item>
     <item name="android:textAppearance">@style/ButtonTextStyle</item>
     <item name="android:paddingTop">@dimen/padding_1</item>
     <item name="android:paddingBottom">@dimen/padding_1</item>
+    <item name="cornerRadius">@dimen/button_radius</item>
+  </style>
+
+  <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="shapeAppearanceOverlay">@style/TextInputLayoutShapeAppearance</item>
+    <item name="android:textAppearance">@style/NormalTextStyle</item>
+    <item name="boxStrokeColor">@color/dark_bg_stroke_color</item>
+    <item name="android:textColorHint">@color/food_donor_white</item>
+  </style>
+
+  <style name="TextInputLayoutShapeAppearance">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">@dimen/card_radius</item>
   </style>
 
   <style name="CardViewStyle" parent="Widget.MaterialComponents.CardView">
     <item name="cardUseCompatPadding">true</item>
     <item name="cardElevation">@dimen/card_elevation</item>
     <item name="cardCornerRadius">@dimen/card_radius</item>
+  </style>
+
+  <style name="OutlinedCardViewStyle" parent="CardViewStyle">
+    <item name="cardElevation">0dp</item>
   </style>
 
   <style name="RoundedCornersStyle">
