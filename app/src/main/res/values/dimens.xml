@@ -20,4 +20,5 @@
   <dimen name="larger_margin_2">60dp</dimen>
   <dimen name="larger_margin_3">150dp</dimen>
   <dimen name="home_image_dimension">75dp</dimen>
+  <dimen name="quadraple_margin">32dp</dimen>
 </resources>
