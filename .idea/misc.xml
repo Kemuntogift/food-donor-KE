@@ -3,23 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/ic_baseline_business.xml" value="0.1865" />
-        <entry key="app/src/main/res/drawable/ic_baseline_call.xml" value="0.101" />
-        <entry key="app/src/main/res/drawable/ic_baseline_email.xml" value="0.101" />
-        <entry key="app/src/main/res/drawable/ic_baseline_home.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_baseline_location.xml" value="0.1865" />
-        <entry key="app/src/main/res/drawable/ic_baseline_logout.xml" value="0.101" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1865" />
-        <entry key="app/src/main/res/drawable/mybuttons.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/activity_donation.xml" value="0.14" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.14764492753623187" />
+        <entry key="app/src/main/res/layout/activity_donation.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_organization_detail.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/activity_organization_list.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_organization_detail.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/item_organization_list.xml" value="0.33" />
-        <entry key="app/src/main/res/menu/logout_menu.xml" value="0.17708333333333334" />
       </map>
     </option>
   </component>
