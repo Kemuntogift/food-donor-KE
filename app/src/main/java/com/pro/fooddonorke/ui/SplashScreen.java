@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.pro.fooddonorke.ProfileActivity;
 import com.pro.fooddonorke.R;
 
 public class SplashScreen extends AppCompatActivity {
@@ -30,12 +28,9 @@ public class SplashScreen extends AppCompatActivity {
             statement = findViewById(R.id.statement);
 
             arrowButton = findViewById(R.id.arrowButton);
-            arrowButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(SplashScreen.this, ProfileActivity.class);
-                    startActivity(intent);
-                }
+            arrowButton.setOnClickListener(view -> {
+                Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                startActivity(intent);
             });
 
         }
