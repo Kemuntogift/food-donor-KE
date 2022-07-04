@@ -1,4 +1,4 @@
-package com.pro.fooddonorke;
+package com.pro.fooddonorke.ui;
 
 
 
@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.pro.fooddonorke.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.pro.fooddonorke;
+package com.pro.fooddonorke.ui;
 
 
 import android.content.Intent;
@@ -13,7 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pro.fooddonorke.MainActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import com.pro.fooddonorke.R;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,18 +23,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = LoginActivity.class.getSimpleName();
     @BindView(R.id.login_signup_text_view)
     TextView mRegisterTextView;
-    @BindView(R.id.login_login_btn)
+    @BindView(R.id.login_btn)
     Button mPasswordLoginButton;
-    @BindView(R.id.login_email_edit_text)
-    TextInputEditText mEmailEditText;
-    @BindView(R.id.login_password_edit_text) TextInputEditText mPasswordEditText;
+    @BindView(R.id.email_text_input_layout)
+    TextInputLayout mEmailEditText;
+    @BindView(R.id.passwordOutlinedTextField) TextInputEditText mPasswordEditText;
     @BindView(R.id.firebaseProgressBar)
     ProgressBar mSignInProgressBar;
     @BindView(R.id.loadingTextView) TextView mLoadingSignUp;
@@ -43,8 +46,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         ButterKnife.bind(this);
+
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -81,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginWithPassword() {
-        String email = mEmailEditText.getText().toString().trim();
+        String email = Objects.requireNonNull(mEmailEditText.getEditText()).getText().toString().trim();
         String password = mPasswordEditText.getText().toString().trim();
         if (email.equals("")) {
             mEmailEditText.setError("Please enter your email");
@@ -92,17 +95,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        hideProgressBar();
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithEmail", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    hideProgressBar();
+                    Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                    if (!task.isSuccessful()) {
+                        Log.w(TAG, "signInWithEmail", task.getException());
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -124,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void showProgressBar() {
         mSignInProgressBar.setVisibility(View.VISIBLE);
         mLoadingSignUp.setVisibility(View.VISIBLE);
-        mLoadingSignUp.setText("Log in you in");
+        mLoadingSignUp.setText(getString(R.string.authenticating));
     }
 
     private void hideProgressBar() {
