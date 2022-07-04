@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_business.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/ic_baseline_email.xml" value="0.1215" />
         <entry key="app/src/main/res/layout/activity_donation.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/layout/activity_organization_detail.xml" value="0.17135416666666667" />
