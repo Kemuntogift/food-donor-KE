@@ -14,20 +14,26 @@
         android:theme="@style/Theme.FoodDonorKE"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
-            android:exported="true"
-            android:theme="@style/NoActionBarStyle">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".ui.Donation"
+            android:exported="false" />
+        <activity
+            android:name=".OrganizationDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrganizationListActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false"
+            android:theme="@style/NoActionBarStyle"/>
     </application>
 
 </manifest>
