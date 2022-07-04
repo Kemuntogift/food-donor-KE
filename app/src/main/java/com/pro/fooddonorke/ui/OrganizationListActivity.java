@@ -1,6 +1,7 @@
-package com.pro.fooddonorke;
+package com.pro.fooddonorke.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -10,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.pro.fooddonorke.adapters.OrganizationListAdapter;
+import com.pro.fooddonorke.R;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -17,10 +21,8 @@ import butterknife.ButterKnife;
 
 public class OrganizationListActivity extends AppCompatActivity {
     private List<String> charities;
-    @BindView(R.id.searchImage)
-    ImageView mSearchView;
     @BindView(R.id.searchText)
-    EditText mSearchText;
+    SearchView mSearchText;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.errorTextView)

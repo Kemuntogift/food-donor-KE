@@ -21,13 +21,18 @@
             android:exported="false" />
         <activity
             android:name=".Donation"
+            android:name=".ui.DonationActivity"
             android:exported="false" />
         <activity
-            android:name=".OrganizationDetailActivity"
+            android:name=".ui.OrganizationDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".OrganizationListActivity"
+            android:name=".ui.OrganizationListActivity"
             android:exported="false" />
+        <activity android:name=".ui.LoginActivity"
+            android:exported="false"/>
+        <activity android:name=".ui.SignupActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -37,11 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+        <activity
+            android:name=".ui.HomeActivity"
+            android:exported="false"
+            android:theme="@style/NoActionBarStyle"/>
     </application>
 
 </manifest>

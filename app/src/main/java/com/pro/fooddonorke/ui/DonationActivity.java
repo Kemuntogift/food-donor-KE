@@ -14,14 +14,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.pro.fooddonorke.MainActivity;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.adapters.FirebaseDonationAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Donation extends AppCompatActivity {
+public class DonationActivity extends AppCompatActivity {
 
     private FirebaseDonationAdapter mFirebaseAdapter;
 

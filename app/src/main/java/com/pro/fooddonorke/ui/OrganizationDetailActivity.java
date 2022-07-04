@@ -1,8 +1,10 @@
-package com.pro.fooddonorke;
+package com.pro.fooddonorke.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.pro.fooddonorke.R;
 
 public class OrganizationDetailActivity extends AppCompatActivity {
 

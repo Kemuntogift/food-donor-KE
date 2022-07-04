@@ -1,4 +1,4 @@
-package com.pro.fooddonorke;
+package com.pro.fooddonorke.adapters;
 
 import android.content.Context;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.pro.fooddonorke.R;
 
 import java.util.List;
 
