@@ -42,4 +42,8 @@
   <string name="authenticating">Authenticating</string>
   <string name="welcome">Welcome %1$s,</string>
   <string name="welcome_subtitle">We rise by lifting others</string>
+  <string name="view_profile">View your profile details</string>
+  <string name="profile">Profile</string>
+  <string name="donation_requests">Donation requests</string>
+  <string name="content_profile_desc">Profile icon</string>
 </resources>
