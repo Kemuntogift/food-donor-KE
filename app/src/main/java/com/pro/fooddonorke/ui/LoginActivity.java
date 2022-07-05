@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button mPasswordLoginButton;
     @BindView(R.id.email_text_input_layout)
     TextInputLayout mEmailEditText;
-    @BindView(R.id.passwordOutlinedTextField) TextInputEditText mPasswordEditText;
+    @BindView(R.id.passwordOutlinedTextField) TextInputLayout mPasswordEditText;
     @BindView(R.id.firebaseProgressBar)
     ProgressBar mSignInProgressBar;
     @BindView(R.id.loadingTextView) TextView mLoadingSignUp;
@@ -50,17 +50,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                }
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
             }
         };
 
@@ -85,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void loginWithPassword() {
         String email = Objects.requireNonNull(mEmailEditText.getEditText()).getText().toString().trim();
-        String password = mPasswordEditText.getText().toString().trim();
+        String password = Objects.requireNonNull(mPasswordEditText.getEditText()).getText().toString().trim();
         if (email.equals("")) {
             mEmailEditText.setError("Please enter your email");
             return;
