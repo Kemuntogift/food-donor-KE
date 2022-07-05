@@ -20,6 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.adapters.OrganizationListAdapter;
+import com.pro.fooddonorke.models.CharitiesSearchResponse;
+import com.pro.fooddonorke.models.Charity;
+import com.pro.fooddonorke.network.FoodDonorKeApi;
+import com.pro.fooddonorke.network.FoodDonorKeClient;
 
 import java.util.List;
 
@@ -38,7 +42,7 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
   private static final String TAG = OrganizationListFragment.class.getSimpleName();
   private OrganizationListAdapter mAdapter;
 
-  private List<String> charities;
+  private List<Charity> reliefs;
 
   @BindView(R.id.searchText)
   SearchView mSearchText;
@@ -77,7 +81,7 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
   @Override
   public void onClick(View v){
     if (v == mSearchText) {
-      String location = mSearchText.ge;
+      String location = mSearchText.getTransitionName();
       if(!(location).equals("")) {
         addToSharedPreferences(location);
       }
@@ -98,7 +102,7 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
     mErrorTextView.setVisibility(View.VISIBLE);
   }
 
-  private void showEvents() {
+  private void showCharities() {
     mRecyclerView.setVisibility(View.VISIBLE);
   }
 
@@ -108,5 +112,37 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
 
 
 
+  private void fetchCharities(String location){
+    FoodDonorKeApi client = FoodDonorKeClient.getClient();
 
+    Call<CharitiesSearchResponse> call = client.getCharitiesByLocation(location);
+
+    call.enqueue(new Callback<CharitiesSearchResponse>() {
+      @Override
+      public void onResponse(Call<CharitiesSearchResponse> call, Response<CharitiesSearchResponse> response) {
+        hideProgressBar();
+
+        if (response.isSuccessful()) {
+          reliefs = response.body().getData();
+          mAdapter = new OrganizationListAdapter(OrganizationListFragment.this, reliefs);
+          mRecyclerView.setAdapter(mAdapter);
+          RecyclerView.LayoutManager layoutManager =
+                  new LinearLayoutManager(OrganizationListFragment.this);
+          mRecyclerView.setLayoutManager(layoutManager);
+          mRecyclerView.setHasFixedSize(true);
+          showCharities();
+        } else {
+          showUnsuccessfulMessage();
+        }
+      }
+
+      @Override
+      public void onFailure(Call<CharitiesSearchResponse> call, Throwable t) {
+        Log.e(TAG, "onFailure: ",t );
+        hideProgressBar();
+        showFailureMessage();
+      }
+
+    });
+  }
 }

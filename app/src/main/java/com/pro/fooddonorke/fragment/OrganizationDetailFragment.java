@@ -9,12 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pro.fooddonorke.R;
+import com.pro.fooddonorke.models.Charity;
 
 import java.util.List;
 
 
 public class OrganizationDetailFragment extends Fragment {
-    private List<String> charities;
+    private List<Charity> reliefs;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
