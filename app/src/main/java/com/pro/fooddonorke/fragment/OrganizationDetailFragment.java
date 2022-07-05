@@ -2,41 +2,57 @@ package com.pro.fooddonorke.fragment;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.divider.MaterialDivider;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.models.Charity;
 
 import java.util.List;
 
+import butterknife.BindView;
 
-public class OrganizationDetailFragment extends Fragment {
-    private List<Charity> reliefs;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class OrganizationDetailFragment extends Fragment implements View.OnClickListener{
+    @BindView(R.id.org_image_detail) ImageView mOrganizationDetailImage;
+    @BindView(R.id.org_name) TextView mOrganizationName;
+    @BindView(R.id.org_icon) ImageView mOrganizationIcon;
+    @BindView(R.id.org_type) TextView mOrganizationType;
+    @BindView(R.id.location_icon) ImageView mLocationIcon;
+    @BindView(R.id.org_location) TextView mOrganizationLocation;
+    @BindView(R.id.phone_image) ImageView mPhoneImage;
+    @BindView(R.id.twitter_image) ImageView mTwitterImage;
+    @BindView(R.id.facebook_image) ImageView mFacebookImage;
+    @BindView(R.id.instagram_image) ImageView mInstagramImage;
+    @BindView(R.id.mail_image) ImageView mEmailImage;
+    @BindView(R.id.divider) MaterialDivider mDivider;
+    @BindView(R.id.food_donation_title) TextView mFoodDonationTitle;
+    @BindView(R.id.food_donation_types) ChipGroup mFoodDonationType;
+    @BindView(R.id.cardView) CardView mCardView;
+    @BindView(R.id.brief_desc) TextView mBriefDescription;
+    @BindView(R.id.org_desc_image_1) ImageView mImageOne;
+    @BindView(R.id.org_desc_image_2) ImageView mImageTwo;
+    @BindView(R.id.org_desc_image_3) ImageView mImageThree;
+    @BindView(R.id.donateButton)
+    Button mDonateButton;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
+    private Charity mRelief;
 
     public OrganizationDetailFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OrganizationDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static OrganizationDetailFragment newInstance(String param1, String param2) {
         OrganizationDetailFragment fragment = new OrganizationDetailFragment();
         Bundle args = new Bundle();

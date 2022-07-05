@@ -127,7 +127,7 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
           mAdapter = new OrganizationListAdapter(OrganizationListFragment.this, reliefs);
           mRecyclerView.setAdapter(mAdapter);
           RecyclerView.LayoutManager layoutManager =
-                  new LinearLayoutManager(OrganizationListFragment.this);
+                  new LinearLayoutManager(getContext());
           mRecyclerView.setLayoutManager(layoutManager);
           mRecyclerView.setHasFixedSize(true);
           showCharities();
