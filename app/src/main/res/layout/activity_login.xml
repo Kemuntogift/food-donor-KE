@@ -41,7 +41,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textWebEmailAddress" />
+                        android:inputType="textWebEmailAddress"
+                        android:textColor="@color/food_donor_white"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/food_donor_white" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
