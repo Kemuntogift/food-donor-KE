@@ -18,7 +18,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.SplashScreen"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/NoActionBarStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,18 +27,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.DonationActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.OrganizationDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.OrganizationListActivity"
-            android:exported="false" />
         <activity android:name=".ui.LoginActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/NoActionBarStyle"/>
         <activity android:name=".ui.SignupActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:theme="@style/NoActionBarStyle"/>
         <activity
             android:name=".ui.HomeActivity"
             android:exported="false" />
