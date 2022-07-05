@@ -17,9 +17,12 @@ import com.google.android.material.divider.MaterialDivider;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.models.Charity;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class OrganizationDetailFragment extends Fragment implements View.OnClickListener{
@@ -42,8 +45,7 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
     @BindView(R.id.org_desc_image_1) ImageView mImageOne;
     @BindView(R.id.org_desc_image_2) ImageView mImageTwo;
     @BindView(R.id.org_desc_image_3) ImageView mImageThree;
-    @BindView(R.id.donateButton)
-    Button mDonateButton;
+    @BindView(R.id.donateButton) Button mDonateButton;
 
 
     private Charity mRelief;
@@ -53,11 +55,10 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
     }
 
 
-    public static OrganizationDetailFragment newInstance(String param1, String param2) {
+    public static OrganizationDetailFragment newInstance(Charity relief) {
         OrganizationDetailFragment fragment = new OrganizationDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable("relief", Parcels.wrap(relief));
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,16 +66,26 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        assert getArguments() != null;
+        mRelief = Parcels.unwrap(getArguments().getParcelable("relief"));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_organization_detail, container, false);
+        View view =  inflater.inflate(R.layout.fragment_organization_detail, container, false);
+        ButterKnife.bind(this, view);
+
+
+
+        mOrganizationName.setText(mRelief.getName());
+        mOrganizationType.setText(mRelief.getType());
+        mOrganizationLocation.setText(mRelief.getLocation());
+        mBriefDescription.setText(mRelief.getDescription());
+
+        mDonateButton.setOnClickListener(this);
+
+        return view;
     }
 }

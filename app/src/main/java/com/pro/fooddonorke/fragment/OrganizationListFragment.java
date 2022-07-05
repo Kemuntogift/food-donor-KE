@@ -62,7 +62,11 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_organization_list, container, false);
+    View view =  inflater.inflate(R.layout.fragment_organization_list, container, false);
+    ButterKnife.bind(this, view);
+
+
+    return view;
   }
 
   @Override

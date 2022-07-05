@@ -68,7 +68,7 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<OrganizationLi
             itemView.setOnClickListener(this);
         }
         public void bindRelief(Charity relief) {
-
+            mOrganizationImageView.set
             mNameTextView.setText(relief.getName());
             mTypeTextView.setText(relief.getType());
             mLocationTextView.setText(relief.getLocation());
