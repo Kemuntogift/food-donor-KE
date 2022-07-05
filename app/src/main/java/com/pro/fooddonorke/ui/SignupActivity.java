@@ -24,8 +24,6 @@ import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = SignupActivity.class.getSimpleName();
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private String mName;
 
     @BindView(R.id.signup_btn) Button mCreateUserButton;
@@ -36,11 +34,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.confirmPasswordOutlinedTextField) TextInputLayout mConfirmPasswordEditText;
     @BindView(R.id.signup_login_text_view) TextView mLoginTextView;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
-//        getSupportActionBar().hide(); //hide the title bar
         setContentView(R.layout.activity_signup);
 
         ButterKnife.bind(this);
@@ -50,7 +48,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
 
-        createAuthStateListener();
 
     }
     @Override
@@ -82,24 +79,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             if (task.isSuccessful()){
                 Log.d(TAG, "Registration successful");
                 createFirebaseUserProfile(Objects.requireNonNull(task.getResult().getUser()));
-                mAuth.signOut();
+                FirebaseAuth.getInstance().signOut();
             }else {
                 Toast.makeText(SignupActivity.this,"Registration failed."+ Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void createAuthStateListener(){
-        mAuthListener = firebaseAuth -> {
-            final FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user != null){
-                Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
-            }
-        };
-    }
+
     private boolean isValidEmail(String email) {
         boolean isGoodEmail =
                 (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
@@ -129,19 +116,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        if(mAuthListener != null){
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
     private void createFirebaseUserProfile(final FirebaseUser user) {
 
         UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
@@ -151,7 +125,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         user.updateProfile(addProfileName)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Log.d(TAG, Objects.requireNonNull(user.getDisplayName()));
                         Toast.makeText(SignupActivity.this, "The display name has ben set", Toast.LENGTH_LONG).show();
                     }
                 });
