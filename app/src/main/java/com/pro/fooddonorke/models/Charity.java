@@ -41,6 +41,8 @@ public class Charity {
     @Expose
     private Contacts contacts;
 
+    private String pushId;
+
     /**
      * No args constructor for use in serialization
      * 
@@ -155,4 +157,11 @@ public class Charity {
         this.contacts = contacts;
     }
 
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 }
