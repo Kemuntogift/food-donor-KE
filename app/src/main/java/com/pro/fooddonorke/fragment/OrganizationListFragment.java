@@ -1,11 +1,12 @@
 package com.pro.fooddonorke.fragment;
 
-import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -34,13 +35,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrganizationListFragment extends Fragment implements View.OnClickListener{
-
+  private static final String TAG = OrganizationListFragment.class.getSimpleName();
   public static final String PREFERENCES_LOCATION_KEY = "location";
   private SharedPreferences mSharedPreferences;
+  private OrganizationListAdapter mAdapter;
   private SharedPreferences.Editor mEditor;
   private String mRecentChoice;
-  private static final String TAG = OrganizationListFragment.class.getSimpleName();
-  private OrganizationListAdapter mAdapter;
+
 
   private List<Charity> reliefs;
 
@@ -82,6 +83,27 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
       fetchCharities(mRecentChoice);
     }
   }
+
+  private void setUpSearchView(String location){
+    mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+    mEditor = mSharedPreferences.edit();
+
+    android.widget.SearchView searchView = new SearchView;
+    searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
+      @Override
+      public boolean onQueryTextSubmit(String location) {
+        addToSharedPreferences(location);
+        fetchCharities(location);
+        return false;
+      }
+
+      @Override
+      public boolean onQueryTextChange(String location) {
+        return false;
+      }
+    });
+  }
+
   @Override
   public void onClick(View v){
     if (v == mSearchText) {
@@ -128,7 +150,7 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
 
         if (response.isSuccessful()) {
           reliefs = response.body().getData();
-          mAdapter = new OrganizationListAdapter(OrganizationListFragment.this, reliefs);
+          mAdapter = new OrganizationListAdapter(getContext(), reliefs);
           mRecyclerView.setAdapter(mAdapter);
           RecyclerView.LayoutManager layoutManager =
                   new LinearLayoutManager(getContext());
