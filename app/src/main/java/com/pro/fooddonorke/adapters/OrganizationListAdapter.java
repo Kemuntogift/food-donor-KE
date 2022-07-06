@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.models.Charity;
 import com.pro.fooddonorke.ui.OrganizationDetailActivity;
@@ -31,11 +32,11 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<OrganizationLi
         mReliefs = reliefs;
     }
 
+    @NonNull
     @Override
     public OrganizationListAdapter.OrganizationViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_organization_list, parent, false);
-        OrganizationViewHolder viewHolder = new OrganizationViewHolder(view);
-        return viewHolder;
+        return new OrganizationViewHolder(view);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<OrganizationLi
             itemView.setOnClickListener(this);
         }
         public void bindRelief(Charity relief) {
-
+            Glide.with(mContext).asBitmap().load(relief.getImage()).placeholder(R.drawable.ic_baseline_business).into(mOrganizationImageView);
             mNameTextView.setText(relief.getName());
             mTypeTextView.setText(relief.getType());
             mLocationTextView.setText(relief.getLocation());
