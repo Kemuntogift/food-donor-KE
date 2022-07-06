@@ -5,6 +5,9 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Charity {
 
     @SerializedName("image")
@@ -37,6 +40,8 @@ public class Charity {
     @SerializedName("contacts")
     @Expose
     private Contacts contacts;
+
+    private String pushId;
 
     /**
      * No args constructor for use in serialization
@@ -152,4 +157,11 @@ public class Charity {
         this.contacts = contacts;
     }
 
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 }
