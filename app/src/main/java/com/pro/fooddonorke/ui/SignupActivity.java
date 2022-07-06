@@ -53,15 +53,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view == mLoginTextView) {
-            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+            redirectToLogin();
         }
 
         if (view == mCreateUserButton) {
             createNewUser();
         }
+    }
+
+    private void redirectToLogin(){
+        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void createNewUser() {
@@ -80,6 +84,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 Log.d(TAG, "Registration successful");
                 createFirebaseUserProfile(Objects.requireNonNull(task.getResult().getUser()));
                 FirebaseAuth.getInstance().signOut();
+                redirectToLogin();
             }else {
                 Toast.makeText(SignupActivity.this,"Registration failed."+ Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
             }
