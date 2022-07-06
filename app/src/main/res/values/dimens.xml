@@ -22,4 +22,8 @@
   <dimen name="home_image_dimension">60dp</dimen>
   <dimen name="quadraple_margin">32dp</dimen>
   <dimen name="home_button_dimension">150dp</dimen>
+  <dimen name="margin_two_point_five">20dp</dimen>
+  <dimen name="icon_dimension_1">40dp</dimen>
+  <dimen name="icon_dimension_2">34dp</dimen>
+  <dimen name="margin_eight_times">64dp</dimen>
 </resources>
