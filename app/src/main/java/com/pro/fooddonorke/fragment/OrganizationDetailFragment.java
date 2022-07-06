@@ -39,8 +39,6 @@ import butterknife.ButterKnife;
 
 
 public class OrganizationDetailFragment extends Fragment implements View.OnClickListener{
-    public static final String FIREBASE_CHILD_RELIEFS = "reliefs";
-
     @BindView(R.id.org_image_detail) ImageView mOrganizationDetailImage;
     @BindView(R.id.org_name) TextView mOrganizationName;
     @BindView(R.id.org_icon) ImageView mOrganizationIcon;
@@ -116,6 +114,11 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         }
 
         mDonateButton.setOnClickListener(this);
+        mPhoneImage.setOnClickListener(this);
+        mTwitterImage.setOnClickListener(this);
+        mFacebookImage.setOnClickListener(this);
+        mInstagramImage.setOnClickListener(this);
+        mEmailImage.setOnClickListener(this);
 
         return view;
     }
@@ -149,21 +152,28 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         }
 
         if (v == mTwitterImage){
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+            Intent twitterIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getTwitter()));
-            startActivity(webIntent);
+            startActivity(twitterIntent);
         }
 
         if (v == mFacebookImage){
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+            Intent facebookIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getFacebook()));
-            startActivity(webIntent);
+            startActivity(facebookIntent);
         }
 
         if (v == mInstagramImage){
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+            Intent instagramIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getInstagram()));
-            startActivity(webIntent);
+            startActivity(instagramIntent);
+        }
+
+        if (v == mEmailImage){
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("message/rfc822");   // Only email apps handle this intent
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mRelief.getContacts().getEmail()});
+            startActivity(Intent.createChooser(emailIntent, "Choose an email client: "));
         }
     }
 }
