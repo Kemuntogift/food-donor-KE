@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.passwordOutlinedTextField) TextInputLayout mPasswordEditText;
     @BindView(R.id.confirmPasswordOutlinedTextField) TextInputLayout mConfirmPasswordEditText;
     @BindView(R.id.signup_login_text_view) TextView mLoginTextView;
+    @BindView(R.id.signUpProgressBar)
+    ProgressBar mSignUpProgressBar;
+    @BindView(R.id.signUpTextView)
+    TextView mLoadingSignUp;
 
     private FirebaseAuth mAuth;
 
@@ -58,6 +63,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         if (view == mCreateUserButton) {
             createNewUser();
+            showProgressBar();
         }
     }
 
@@ -77,9 +83,13 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         boolean validEmail = isValidEmail(email);
         boolean validName = isValidName(mName);
         boolean validPassword = isValidPassword(password, confirmPassword);
-        if (!validEmail || !validName || !validPassword) return;
+        if (!validEmail || !validName || !validPassword) {
+            hideProgressBar();
+            return;
+        }
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+            hideProgressBar();
             if (task.isSuccessful()){
                 Log.d(TAG, "Registration successful");
                 createFirebaseUserProfile(Objects.requireNonNull(task.getResult().getUser()));
@@ -133,5 +143,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignupActivity.this, "The display name has ben set", Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    private void showProgressBar() {
+        mSignUpProgressBar.setVisibility(View.VISIBLE);
+        mLoadingSignUp.setVisibility(View.VISIBLE);
+        mCreateUserButton.setVisibility(View.GONE);
+        mLoginTextView.setVisibility(View.GONE);
+    }
+
+    private void hideProgressBar() {
+        mSignUpProgressBar.setVisibility(View.GONE);
+        mLoadingSignUp.setVisibility(View.GONE);
+        mCreateUserButton.setVisibility(View.VISIBLE);
+        mLoginTextView.setVisibility(View.VISIBLE);
     }
 }

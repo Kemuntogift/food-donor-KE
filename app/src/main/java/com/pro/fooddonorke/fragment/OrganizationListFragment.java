@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -27,6 +26,7 @@ import com.pro.fooddonorke.network.FoodDonorKeApi;
 import com.pro.fooddonorke.network.FoodDonorKeClient;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +53,8 @@ public class OrganizationListFragment extends Fragment {
   TextView mErrorTextView;
   @BindView(R.id.progressBar)
   ProgressBar mProgressBar;
+  @BindView(R.id.loading_text_view)
+  TextView mLoadingTextView;
 
 
   public OrganizationListFragment() {
@@ -108,12 +110,12 @@ public class OrganizationListFragment extends Fragment {
 
 
   private void showFailureMessage() {
-    mErrorTextView.setText("Something went wrong. Please check your Internet connection and try again later");
+    mErrorTextView.setText(getString(R.string.failure_message));
     mErrorTextView.setVisibility(View.VISIBLE);
   }
 
   private void showUnsuccessfulMessage() {
-    mErrorTextView.setText("Something went wrong. Please try again later");
+    mErrorTextView.setText(getString(R.string.unsuccessful_message));
     mErrorTextView.setVisibility(View.VISIBLE);
   }
 
@@ -123,6 +125,7 @@ public class OrganizationListFragment extends Fragment {
 
   private void hideProgressBar() {
     mProgressBar.setVisibility(View.GONE);
+    mLoadingTextView.setVisibility(View.GONE);
   }
 
 
@@ -138,7 +141,7 @@ public class OrganizationListFragment extends Fragment {
         hideProgressBar();
 
         if (response.isSuccessful()) {
-          reliefs = response.body().getData();
+          reliefs = Objects.requireNonNull(response.body()).getData();
           RecyclerView.LayoutManager layoutManager =
                   new LinearLayoutManager(getContext());
           mRecyclerView.setLayoutManager(layoutManager);
@@ -158,7 +161,6 @@ public class OrganizationListFragment extends Fragment {
         hideProgressBar();
         showFailureMessage();
       }
-
     });
   }
 }
