@@ -1,5 +1,9 @@
 package com.pro.fooddonorke.fragment;
 
+import static com.pro.fooddonorke.utilities.Constants.FIREBASE_CHILD_DONATIONS;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -13,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.divider.MaterialDivider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +31,8 @@ import com.pro.fooddonorke.models.Charity;
 import org.parceler.Parcels;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,12 +92,28 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         View view =  inflater.inflate(R.layout.fragment_organization_detail, container, false);
         ButterKnife.bind(this, view);
 
-
+        // Set organization image
+        Glide.with(requireContext()).asBitmap().load(mRelief.getImage()).placeholder(R.drawable.img).into(mOrganizationDetailImage);
 
         mOrganizationName.setText(mRelief.getName());
         mOrganizationType.setText(mRelief.getType());
         mOrganizationLocation.setText(mRelief.getLocation());
         mBriefDescription.setText(mRelief.getDescription());
+
+        // Set food donation types
+        for (String foodDonation: mRelief.getFooddonations()) {
+            Chip chip = new Chip(requireContext());
+            chip.setText(foodDonation);
+            mFoodDonationType.addView(chip);
+        }
+
+        // Set brief description images
+        List<String> descriptionImages = mRelief.getDescriptionImages();
+        for (int i = 0; i < descriptionImages.size(); i++) {
+            Glide.with(requireContext()).asBitmap().load(descriptionImages.get(0)).into(mImageOne);
+            Glide.with(requireContext()).asBitmap().load(descriptionImages.get(1)).into(mImageTwo);
+            Glide.with(requireContext()).asBitmap().load(descriptionImages.get(2)).into(mImageThree);
+        }
 
         mDonateButton.setOnClickListener(this);
 
@@ -99,17 +123,47 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
     public void onClick(View v) {
         if (v == mDonateButton) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String uid = user.getUid();
+            String uid = Objects.requireNonNull(user).getUid();
+            String pushId = String.format(Locale.ENGLISH,"relief_%d", mRelief.getId());
             DatabaseReference reliefRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(FIREBASE_CHILD_RELIEFS)
-                    .child(uid);
+                    .getReference(FIREBASE_CHILD_DONATIONS)
+                    .child(uid).child(pushId);
 
-            DatabaseReference pushRef = reliefRef.push();
-            String pushId = pushRef.getKey();
             mRelief.setPushId(pushId);
-            pushRef.setValue(mRelief);
-            Toast.makeText(getContext(), "Donated!", Toast.LENGTH_SHORT).show();
+            reliefRef.setValue(mRelief).addOnCompleteListener(requireActivity(), insertTask -> {
+                if (insertTask.isSuccessful()){
+                    Toast.makeText(getContext(), "Thanks for donating!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), Objects.requireNonNull(insertTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
+        // Set implicit intents
+        if (v == mPhoneImage){
+            Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
+                    Uri.parse("tel:" + mRelief.getContacts().getPhone()));
+            startActivity(phoneIntent);
+        }
+
+        if (v == mTwitterImage){
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mRelief.getContacts().getTwitter()));
+            startActivity(webIntent);
+        }
+
+        if (v == mFacebookImage){
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mRelief.getContacts().getFacebook()));
+            startActivity(webIntent);
+        }
+
+        if (v == mInstagramImage){
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mRelief.getContacts().getInstagram()));
+            startActivity(webIntent);
         }
     }
 }

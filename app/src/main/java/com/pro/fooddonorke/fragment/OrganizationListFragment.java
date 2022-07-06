@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrganizationListFragment extends Fragment implements View.OnClickListener{
+public class OrganizationListFragment extends Fragment {
   private static final String TAG = OrganizationListFragment.class.getSimpleName();
   public static final String PREFERENCES_LOCATION_KEY = "location";
   private SharedPreferences mSharedPreferences;
@@ -75,21 +75,19 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
     super.onViewCreated(view, savedInstanceState);
     ButterKnife.bind(this, view);
 
-    mSearchText.setOnSearchClickListener(this);
-
     mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
     mRecentChoice = mSharedPreferences.getString(PREFERENCES_LOCATION_KEY, null);
     if(mRecentChoice != null){
       fetchCharities(mRecentChoice);
     }
+    setUpSearchView();
   }
 
-  private void setUpSearchView(String location){
+  private void setUpSearchView(){
     mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
     mEditor = mSharedPreferences.edit();
 
-    android.widget.SearchView searchView = new SearchView;
-    searchView.setOnQueryTextListener(new android.widget.SearchView.OnQueryTextListener() {
+    mSearchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String location) {
         addToSharedPreferences(location);
@@ -104,15 +102,6 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
     });
   }
 
-  @Override
-  public void onClick(View v){
-    if (v == mSearchText) {
-      String location = mSearchText.getTransitionName();
-      if(!(location).equals("")) {
-        addToSharedPreferences(location);
-      }
-    }
-  }
   private void addToSharedPreferences(String location) {
     mEditor.putString(PREFERENCES_LOCATION_KEY, location).apply();
   }
@@ -145,25 +134,26 @@ public class OrganizationListFragment extends Fragment implements View.OnClickLi
 
     call.enqueue(new Callback<CharitiesSearchResponse>() {
       @Override
-      public void onResponse(Call<CharitiesSearchResponse> call, Response<CharitiesSearchResponse> response) {
+      public void onResponse(@NonNull Call<CharitiesSearchResponse> call, @NonNull Response<CharitiesSearchResponse> response) {
         hideProgressBar();
 
         if (response.isSuccessful()) {
           reliefs = response.body().getData();
-          mAdapter = new OrganizationListAdapter(getContext(), reliefs);
-          mRecyclerView.setAdapter(mAdapter);
           RecyclerView.LayoutManager layoutManager =
                   new LinearLayoutManager(getContext());
           mRecyclerView.setLayoutManager(layoutManager);
+          mAdapter = new OrganizationListAdapter(getContext(), reliefs);
+          mRecyclerView.setAdapter(mAdapter);
           mRecyclerView.setHasFixedSize(true);
           showCharities();
+          Log.d(TAG, "Count: " + mAdapter.getItemCount());
         } else {
           showUnsuccessfulMessage();
         }
       }
 
       @Override
-      public void onFailure(Call<CharitiesSearchResponse> call, Throwable t) {
+      public void onFailure(@NonNull Call<CharitiesSearchResponse> call, @NonNull Throwable t) {
         Log.e(TAG, "onFailure: ",t );
         hideProgressBar();
         showFailureMessage();
