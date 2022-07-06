@@ -47,8 +47,8 @@
   <string name="donation_requests">Donation requests</string>
   <string name="content_profile_desc">Profile icon</string>
   <string name="signup_Phone_hint">Phone</string>
-    <string name="signup_Location_hint">Location</string>
-    <string name="signup_Description_hint">Description</string>
+  <string name="signup_Location_hint">Location</string>
+  <string name="signup_Description_hint">Description</string>
   <string name="update_profile">Update Profile</string>
   <string name="content_profile_img_desc">Profile image</string>
   <string name="content_desc_background">Splash screen background</string>
