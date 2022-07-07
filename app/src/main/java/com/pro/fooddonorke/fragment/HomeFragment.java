@@ -1,5 +1,6 @@
 package com.pro.fooddonorke.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pro.fooddonorke.R;
+import com.pro.fooddonorke.ui.HomeActivity;
+import com.pro.fooddonorke.ui.ProfileActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +29,7 @@ public class HomeFragment extends Fragment {
   Button profileButton;
   @BindView(R.id.welcomeId)
   TextView welcomeText;
+
 
   private FirebaseAuth auth;
 
@@ -39,11 +43,20 @@ public class HomeFragment extends Fragment {
     return inflater.inflate(R.layout.fragment_home, container, false);
   }
 
+
+
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     ButterKnife.bind(this,view);
 
+    profileButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(getContext(), ProfileActivity.class);
+        startActivity(intent);
+      }
+    });
     auth = FirebaseAuth.getInstance();
     setWelcomeText();
 
@@ -55,4 +68,5 @@ public class HomeFragment extends Fragment {
       welcomeText.setText(getString(R.string.welcome, user.getDisplayName()));
     }
   }
+
 }

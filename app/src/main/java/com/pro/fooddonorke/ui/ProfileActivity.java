@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,19 +45,22 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String ProfileData = name.getEditText().getText().toString();
-//                String email = phone.getEditText().getText().toString();
-//                String phone = location.getEditText().getText().toString();
-//                String location = description.getEditText().getText().toString();
+                String ProfilePhone = phone.getEditText().getText().toString();
+                String ProfileEmail = email.getEditText().getText().toString();
+                String ProfileLocation = location.getEditText().getText().toString();
+                String ProfileDescription = description.getEditText().getText().toString();
 
 
                 HashMap<String, String> userMap = new HashMap<>();
                 userMap.put("name", ProfileData);
-//                userMap.put("email", email);
-//                userMap.put("phone", phone);
-//                userMap.put("location", location);
-//                userMap.put("description", description);
+                userMap.put("email", ProfileEmail);
+                userMap.put("phone", ProfilePhone);
+                userMap.put("location", ProfileLocation);
+                userMap.put("description", ProfileDescription);
 
-                root.setValue(userMap);
+                root.push().setValue(userMap);
+
+                Toast.makeText(ProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
             }
         });
 
