@@ -33,7 +33,7 @@ public class SplashScreen extends AppCompatActivity {
             arrowButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(SplashScreen.this, ProfileActivity.class);
+                    Intent intent = new Intent(SplashScreen.this, SignupActivity.class);
                     startActivity(intent);
                 }
             });

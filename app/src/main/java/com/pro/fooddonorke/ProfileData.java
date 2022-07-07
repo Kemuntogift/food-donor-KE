@@ -9,7 +9,7 @@ public class ProfileData {
     String location;
     String description;
 
-    public ProfileData(String id, String dataFieldText) {
+    public ProfileData() {
     }
 
     public ProfileData(String id, String name, String email, String phone, String location, String description) {
