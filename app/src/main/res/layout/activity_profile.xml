@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".ui.ProfileActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name"
         style="@style/TextInputLayoutStyle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/triple_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/triple_margin"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/triple_margin"
+        android:layout_marginEnd="@dimen/default_margin"
         android:hint="@string/signup_name_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,14 +32,13 @@
         style="@style/TextInputLayoutStyle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/triple_margin"
+        android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/triple_margin"
+        android:layout_marginEnd="@dimen/default_margin"
         android:hint="@string/signup_email_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name"
-        >
+        app:layout_constraintTop_toBottomOf="@id/name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -53,14 +52,13 @@
         style="@style/TextInputLayoutStyle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/triple_margin"
+        android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/triple_margin"
+        android:layout_marginEnd="@dimen/default_margin"
         android:hint="@string/signup_Phone_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        >
+        app:layout_constraintTop_toBottomOf="@id/email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -74,14 +72,13 @@
         style="@style/TextInputLayoutStyle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/triple_margin"
+        android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/triple_margin"
+        android:layout_marginEnd="@dimen/default_margin"
         android:hint="@string/signup_Location_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone"
-        >
+        app:layout_constraintTop_toBottomOf="@id/phone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -94,14 +91,13 @@
         style="@style/TextInputLayoutStyle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/triple_margin"
+        android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/triple_margin"
+        android:layout_marginEnd="@dimen/default_margin"
         android:hint="@string/signup_Description_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location"
-        >
+        app:layout_constraintTop_toBottomOf="@id/location">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -111,27 +107,28 @@
 
     <Button
         android:id="@+id/updateButton"
-        android:layout_width="wrap_content"
+        style="@style/ButtonStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Update Profile"
-        android:textColor="#FFFFFF"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:text="@string/update_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/triple_margin"
         android:src="@drawable/vector"
         app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:contentDescription="@string/content_profile_img_desc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

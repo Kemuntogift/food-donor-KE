@@ -68,6 +68,9 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.13'
     annotationProcessor 'org.parceler:parceler:1.1.13'
 
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.8'
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.robolectric:robolectric:4.8.1"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

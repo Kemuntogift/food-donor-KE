@@ -1,4 +1,4 @@
-package com.pro.fooddonorke;
+package com.pro.fooddonorke.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.pro.fooddonorke.utilities.Constants;
 
 import java.util.HashMap;
+
+import com.pro.fooddonorke.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

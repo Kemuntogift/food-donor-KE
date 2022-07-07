@@ -5,6 +5,7 @@
   <string name="location">Location</string>
   <string name="content_desc_location">Location icon</string>
   <string name="home">Home</string>
+  <string name="two">2</string>
   <string name="bg_img_desc">Image View</string>
   <string name="login_welcome_text">Login</string>
   <string name="login_email">Email Address</string>
@@ -39,10 +40,24 @@
   <string name="ngo">NGOs</string>
   <string name="content_desc_instagram">Instagram account</string>
   <string name="content_desc_email">Email address</string>
-  <string name="authenticating">Authenticating</string>
+  <string name="authenticating">Authenticating…</string>
   <string name="welcome">Welcome %1$s,</string>
   <string name="welcome_subtitle">We rise by lifting others</string>
+  <string name="view_profile">View your profile details</string>
+  <string name="profile">Profile</string>
+  <string name="donation_requests">Donation requests</string>
+  <string name="content_profile_desc">Profile icon</string>
   <string name="signup_Phone_hint">Phone</string>
-    <string name="signup_Location_hint">Location</string>
-    <string name="signup_Description_hint">Description</string>
+  <string name="signup_Location_hint">Location</string>
+  <string name="signup_Description_hint">Description</string>
+  <string name="update_profile">Update Profile</string>
+  <string name="content_profile_img_desc">Profile image</string>
+  <string name="content_desc_background">Splash screen background</string>
+  <string name="content_desc_splash_button">Button to get started</string>
+  <string name="splash_subtitle">Let’s be part of the movement in protecting the vulnerable from hunger</string>
+  <string name="charity">Charity</string>
+  <string name="signing_up">Signing up …</string>
+  <string name="loading">Loading …</string>
+  <string name="failure_message">Something went wrong. Please check your Internet connection and try again later</string>
+  <string name="unsuccessful_message">Something went wrong. Please try again later</string>
 </resources>

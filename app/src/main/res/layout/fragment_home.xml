@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.HomeActivity">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/welcomeId"
+          style="@style/BolderTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentStart="true"
+          android:layout_marginStart="@dimen/default_margin"
+          android:layout_marginTop="@dimen/triple_margin"
+          android:layout_toStartOf="@id/profilePicId"
+          android:text="@string/welcome"
+          android:textColor="@color/food_donor_darker_blue" />
+
+      <TextView
+          style="@style/NormalTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/welcomeId"
+          android:layout_alignParentStart="true"
+          android:layout_marginStart="@dimen/default_margin"
+          android:layout_marginTop="@dimen/margin"
+          android:layout_toStartOf="@id/profilePicId"
+          android:text="@string/welcome_subtitle" />
+
+      <ImageView
+          android:id="@+id/profilePicId"
+          android:layout_width="@dimen/home_image_dimension"
+          android:layout_height="@dimen/home_image_dimension"
+          android:layout_alignParentTop="true"
+          android:layout_alignParentEnd="true"
+          android:layout_marginStart="@dimen/default_margin"
+          android:layout_marginTop="@dimen/triple_margin"
+          android:layout_marginEnd="@dimen/default_margin"
+          android:contentDescription="@string/content_profile_desc"
+          android:src="@drawable/profile" />
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="159dp"
+        android:layout_margin="17dp"
+        android:elevation="5dp"
+        android:padding="15dp"
+        app:cardElevation="5dp" >
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/view_profile"
+            style="@style/NormalTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/triple_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:gravity="center_horizontal"
+            android:text="@string/view_profile" />
+
+        <Button
+            android:id="@+id/profileButtonId"
+            style="@style/ButtonStyle"
+            android:layout_width="@dimen/home_button_dimension"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_profile"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/margin"
+            android:gravity="center_horizontal"
+            android:text="@string/profile" />
+      </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        style="@style/BolderTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:text="@string/donation_requests"
+        android:textColor="@color/food_donor_black"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        tools:listitem="@layout/item_organization_list">
+
+    </androidx.recyclerview.widget.RecyclerView>
+  </LinearLayout>
+</ScrollView>

@@ -20,6 +20,7 @@
       app:srcCompat="@drawable/ic_baseline_business" />
 
   <com.google.android.material.divider.MaterialDivider
+      android:id="@+id/divider"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/triple_margin"
@@ -32,8 +33,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="@fraction/guideline"
-      app:layout_constraintGuide_begin="20dp" />
+      app:layout_constraintGuide_begin="20dp"
+      app:layout_constraintGuide_percent="@fraction/guideline" />
 
   <TextView
       android:id="@+id/org_name"
@@ -62,23 +63,34 @@
   <TextView
       android:id="@+id/org_location"
       style="@style/NormalTextStyle"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="17dp"
+      android:layout_marginTop="@dimen/default_margin"
       android:layout_marginEnd="@dimen/margin"
+      android:layout_marginBottom="@dimen/default_margin"
       android:textStyle="italic"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/org_type"
+      app:layout_constraintBottom_toTopOf="@id/divider"
       tools:text="@string/location" />
 
   <ImageView
-      android:id="@+id/imageView2"
+      android:id="@+id/location_icon2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
+      android:layout_marginTop="@dimen/default_margin"
       android:layout_marginEnd="@dimen/margin"
+      android:layout_marginBottom="@dimen/default_margin"
+      android:contentDescription="@string/content_desc_location"
       app:layout_constraintEnd_toStartOf="@+id/org_location"
       app:layout_constraintTop_toBottomOf="@+id/org_type"
-      android:contentDescription="@string/content_desc_location"
+      app:layout_constraintBottom_toTopOf="@id/divider"
       app:srcCompat="@drawable/ic_baseline_location" />
+
+  <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/barrier2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:barrierDirection="start"
+      app:constraint_referenced_ids="org_name, org_type, location_icon2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
