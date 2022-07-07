@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +36,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Donation extends AppCompatActivity {
+public class DonationActivity extends AppCompatActivity {
 
     private DatabaseReference mCharityReference;
     private FirebaseRecyclerAdapter<Charity, FirebaseOrganizationViewHolder> mFireBaseAdapter;
@@ -52,42 +53,44 @@ public class Donation extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = Objects.requireNonNull(user).getUid();
-
-
-        mCharityReference = FirebaseDatabase.getInstance()
-                .getReference(Constants.FIREBASE_CHILD_DONATIONS)
-                .child(uid);
-
-        setUpFirebaseAdapter();
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        String uid = Objects.requireNonNull(user).getUid();
+//
+//
+//        mCharityReference = FirebaseDatabase.getInstance()
+//                .getReference(Constants.FIREBASE_CHILD_DONATIONS)
+//                .child(uid);
+//
+//        setUpFirebaseAdapter();
         hideProgressBar();
         showCharities();
     }
 
-    private void setUpFirebaseAdapter() {
-        FirebaseRecyclerOptions<Charity> options =
-                new FirebaseRecyclerOptions.Builder<Charity>()
-                        .setQuery(mCharityReference, Charity.class)
-                        .build();
-
-        mFireBaseAdapter = new FirebaseRecyclerAdapter<Charity, FirebaseOrganizationViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull FirebaseOrganizationViewHolder holder, int position, @NonNull Charity model) {
-                holder.bindRelief(model);
-            }
-
-            @NonNull
-            @Override
-            public FirebaseOrganizationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_donation_list, parent, false);
-                return new FirebaseOrganizationViewHolder(view);
-            }
-        };
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mFireBaseAdapter.startListening();
-    }
+//    private void setUpFirebaseAdapter() {
+//        FirebaseRecyclerOptions<Charity> options =
+//                new FirebaseRecyclerOptions.Builder<Charity>()
+//                        .setQuery(mCharityReference, Charity.class)
+//                        .build();
+//
+//        mFireBaseAdapter = new FirebaseRecyclerAdapter<Charity, FirebaseOrganizationViewHolder>(options) {
+//            @Override
+//            protected void onBindViewHolder(@NonNull FirebaseOrganizationViewHolder holder, int position, @NonNull Charity model) {
+//                holder.bindRelief(model);
+//            }
+//
+//            @NonNull
+//            @Override
+//            public FirebaseOrganizationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_organization_list, parent, false);
+//                return new FirebaseOrganizationViewHolder(view);
+//            }
+//        };
+//
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerView.setAdapter(mFireBaseAdapter);
+//        Log.d("Donation","count" + mFireBaseAdapter.getItemCount());
+////        mFireBaseAdapter.startListening();
+//    }
 
     // populating the menu and logging out a user.
     @Override

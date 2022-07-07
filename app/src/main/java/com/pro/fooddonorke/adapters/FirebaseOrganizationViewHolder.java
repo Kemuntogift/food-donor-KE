@@ -19,15 +19,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.models.Charity;
-import com.pro.fooddonorke.ui.Donation;
+import com.pro.fooddonorke.ui.DonationActivity;
+import com.pro.fooddonorke.ui.OrganizationDetailActivity;
 import com.pro.fooddonorke.utilities.Constants;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import butterknife.BindView;
 
 public class FirebaseOrganizationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -51,6 +50,8 @@ public class FirebaseOrganizationViewHolder extends RecyclerView.ViewHolder impl
         mNameTextView.setText(mRelief.getName());
         mTypeTextView.setText(mRelief.getType());
         mLocationTextView.setText(mRelief.getLocation());
+
+        mView.setOnClickListener(this);
     }
 
     @Override
@@ -73,15 +74,15 @@ public class FirebaseOrganizationViewHolder extends RecyclerView.ViewHolder impl
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                    mRelief.add(snapshot.getValue(Charity.class));
+                    mRelief.add(dataSnapshot.getValue(Charity.class));
 
                 }
 
                 int itemPosition = getLayoutPosition();
 
-                Intent intent = new Intent(mContext, Donation.class);
+                Intent intent = new Intent(mContext, OrganizationDetailActivity.class);
 
-                intent.putExtra("position", itemPosition +"");
+                intent.putExtra("position", itemPosition);
                 intent.putExtra("reliefs", Parcels.wrap(mRelief));
 
                 mContext.startActivity(intent);

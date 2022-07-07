@@ -5,6 +5,7 @@
   <string name="location">Location</string>
   <string name="content_desc_location">Location icon</string>
   <string name="home">Home</string>
+  <string name="two">2</string>
   <string name="bg_img_desc">Image View</string>
   <string name="login_welcome_text">Login</string>
   <string name="login_email">Email Address</string>
