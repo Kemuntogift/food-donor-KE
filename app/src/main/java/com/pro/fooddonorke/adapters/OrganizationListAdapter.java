@@ -65,7 +65,6 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<OrganizationLi
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
-
             itemView.setOnClickListener(this);
         }
         public void bindRelief(Charity relief) {
