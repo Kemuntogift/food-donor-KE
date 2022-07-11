@@ -7,4 +7,6 @@ public class Constants {
   public static final String LOCATION_QUERY_PARAMETER = "location";
   public static final String FIREBASE_CHILD_DONATIONS_STATS = "donation_stats";
   public static final String DONATIONS_STAT_FIELD = "donations";
+  public static final String STORAGE_AVATAR = "avatar";
+  public static final String FOOD_DONORS = "food_donors";
 }
