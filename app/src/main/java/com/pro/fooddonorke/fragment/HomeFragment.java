@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,13 +50,6 @@ public class HomeFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     ButterKnife.bind(this,view);
 
-    profileButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = new Intent(getContext(), ProfileActivity.class);
-        startActivity(intent);
-      }
-    });
     AppCompatActivity activity = (AppCompatActivity) getActivity();
 
     if (activity != null) {
@@ -64,7 +58,14 @@ public class HomeFragment extends Fragment {
 
     auth = FirebaseAuth.getInstance();
     setWelcomeText();
+    setUpProfileButton();
+  }
 
+  private void setUpProfileButton(){
+    profileButton.setOnClickListener(view -> {
+      Intent intent = new Intent(getContext(), ProfileActivity.class);
+      startActivity(intent);
+    });
   }
 
   private void setWelcomeText(){
