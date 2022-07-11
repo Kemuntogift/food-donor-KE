@@ -60,4 +60,6 @@
   <string name="loading">Loading …</string>
   <string name="failure_message">Something went wrong. Please check your Internet connection and try again later</string>
   <string name="unsuccessful_message">Something went wrong. Please try again later</string>
+  <string name="charities">Charities</string>
+  <string name="no_donations">No donations listed</string>
 </resources>

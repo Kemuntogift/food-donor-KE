@@ -1,12 +1,8 @@
 package com.pro.fooddonorke.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -14,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,12 +19,14 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.adapters.FirebaseOrganizationViewHolder;
 import com.pro.fooddonorke.models.Charity;
-import com.pro.fooddonorke.ui.SplashScreen;
 import com.pro.fooddonorke.utilities.Constants;
 
 import java.util.Objects;
@@ -36,11 +35,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DonationListFragment extends Fragment {
-//  private FirebaseOrganizationViewHolder mFirebaseAdapter;
-
-  private DatabaseReference mCharityReference;
-  private FirebaseRecyclerAdapter<Charity, FirebaseOrganizationViewHolder> mFirebaseAdapter;
-
   // declare the variables.
   @BindView(R.id.recyclerviewDonation)
   RecyclerView mRecyclerView;
@@ -48,6 +42,18 @@ public class DonationListFragment extends Fragment {
   ProgressBar mProgressBar;
   @BindView(R.id.errorTextViewD)
   TextView mErrorText;
+  @BindView(R.id.no_of_charities)
+  TextView mNoOfCharities;
+  @BindView(R.id.no_of_donations)
+  TextView mNoOfDonations;
+  @BindView(R.id.loadingTextViewD)
+  TextView mLoadingTextView;
+
+  public static final String TAG = DonationListFragment.class.getSimpleName();
+  private DatabaseReference mCharityReference;
+  private DatabaseReference mDonationStatsReference;
+  private FirebaseRecyclerAdapter<Charity, FirebaseOrganizationViewHolder> mFirebaseAdapter;
+  private ValueEventListener charityListener;
 
   public DonationListFragment() {
   }
@@ -64,6 +70,12 @@ public class DonationListFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     ButterKnife.bind(this, view);
 
+    AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+    if (activity != null) {
+      Objects.requireNonNull(activity.getSupportActionBar()).setTitle(getString(R.string.donations));
+    }
+
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String uid = Objects.requireNonNull(user).getUid();
 
@@ -72,9 +84,33 @@ public class DonationListFragment extends Fragment {
             .getReference(Constants.FIREBASE_CHILD_DONATIONS)
             .child(uid);
 
+    mDonationStatsReference = FirebaseDatabase.getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_DONATIONS_STATS)
+                    .child(uid).child(Constants.DONATIONS_STAT_FIELD);
+
+    setUpCharityListener();
+
     setUpFirebaseAdapter();
     hideProgressBar();
     showCharities();
+  }
+
+  private void setUpCharityListener(){
+    charityListener = new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
+        mNoOfCharities.setText(String.valueOf(snapshot.getChildrenCount()));
+
+        if (!snapshot.hasChildren()){
+          showError(getString(R.string.no_donations));
+        }
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+        Log.d(TAG, "Error while fetching NGOs count: ", error.toException());
+      }
+    };
   }
 
   private void setUpFirebaseAdapter() {
@@ -99,14 +135,13 @@ public class DonationListFragment extends Fragment {
 
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     mRecyclerView.setAdapter(mFirebaseAdapter);
-    Log.d("Donation","count" + mFirebaseAdapter.getItemCount());
-//        mFireBaseAdapter.startListening();
   }
 
   @Override
   public void onStart() {
     super.onStart();
-        mFirebaseAdapter.startListening();
+    mFirebaseAdapter.startListening();
+    mCharityReference.addValueEventListener(charityListener);
   }
 
   @Override
@@ -115,12 +150,13 @@ public class DonationListFragment extends Fragment {
     if (mFirebaseAdapter != null){
             mFirebaseAdapter.stopListening();
     }
+    mCharityReference.removeEventListener(charityListener);
   }
 
   @Override
   public void onDestroy() {
     super.onDestroy();
-        mFirebaseAdapter.stopListening();
+    mFirebaseAdapter.stopListening();
   }
 
   private void showCharities() {
@@ -129,5 +165,11 @@ public class DonationListFragment extends Fragment {
 
   private void hideProgressBar()  {
     mProgressBar.setVisibility(View.GONE);
+    mLoadingTextView.setVisibility(View.GONE);
+  }
+
+  private void showError(String message){
+    mErrorText.setText(message);
+    mErrorText.setVisibility(View.VISIBLE);
   }
 }

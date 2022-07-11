@@ -23,8 +23,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="@dimen/larger_margin_3"
-            android:layout_height="@dimen/larger_margin_3"
+            android:layout_width="@dimen/larger_dimension"
+            android:layout_height="@dimen/larger_dimension"
             android:background="@drawable/mybuttons"
             android:gravity="center"
             android:orientation="vertical">
@@ -48,8 +48,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="@dimen/larger_margin_3"
-            android:layout_height="@dimen/larger_margin_3"
+            android:layout_width="@dimen/larger_dimension"
+            android:layout_height="@dimen/larger_dimension"
             android:layout_marginStart="@dimen/larger_margin_2"
             android:background="@drawable/mybuttons"
             android:gravity="center"

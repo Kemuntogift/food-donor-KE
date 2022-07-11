@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -76,6 +77,12 @@ public class OrganizationListFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     ButterKnife.bind(this, view);
+
+    AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+    if (activity != null) {
+      Objects.requireNonNull(activity.getSupportActionBar()).setTitle(getString(R.string.charities));
+    }
 
     mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
     mRecentChoice = mSharedPreferences.getString(PREFERENCES_LOCATION_KEY, null);

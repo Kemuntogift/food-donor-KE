@@ -1,14 +1,19 @@
 package com.pro.fooddonorke.fragment;
 
 import static com.pro.fooddonorke.utilities.Constants.FIREBASE_CHILD_DONATIONS;
+import static com.pro.fooddonorke.utilities.Constants.FIREBASE_CHILD_DONATIONS_STATS;
+
+import static java.lang.Integer.parseInt;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +28,14 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.divider.MaterialDivider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.models.Charity;
+import com.pro.fooddonorke.utilities.Constants;
 
 import org.parceler.Parcels;
 
@@ -62,6 +71,7 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
 
 
     private Charity mRelief;
+    public static final String TAG = OrganizationDetailFragment.class.getSimpleName();
 
     public OrganizationDetailFragment() {
         // Required empty public constructor
@@ -127,13 +137,17 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         if (v == mDonateButton) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = Objects.requireNonNull(user).getUid();
+
             String pushId = String.format(Locale.ENGLISH,"relief_%d", mRelief.getId());
+
             DatabaseReference reliefRef = FirebaseDatabase
                     .getInstance()
                     .getReference(FIREBASE_CHILD_DONATIONS)
                     .child(uid).child(pushId);
 
             mRelief.setPushId(pushId);
+
+            // Begin interaction
             reliefRef.setValue(mRelief).addOnCompleteListener(requireActivity(), insertTask -> {
                 if (insertTask.isSuccessful()){
                     Toast.makeText(getContext(), "Thanks for donating!", Toast.LENGTH_SHORT).show();
@@ -141,7 +155,6 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
                     Toast.makeText(getContext(), Objects.requireNonNull(insertTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
 
         // Set implicit intents

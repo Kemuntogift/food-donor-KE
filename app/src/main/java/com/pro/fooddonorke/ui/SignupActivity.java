@@ -16,8 +16,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pro.fooddonorke.R;
+import com.pro.fooddonorke.utilities.Constants;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -52,8 +56,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
-
-
     }
     @Override
     public void onClick(View view) {
@@ -91,10 +93,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
             hideProgressBar();
             if (task.isSuccessful()){
+                final FirebaseUser user = task.getResult().getUser();
                 Log.d(TAG, "Registration successful");
-                createFirebaseUserProfile(Objects.requireNonNull(task.getResult().getUser()));
-                FirebaseAuth.getInstance().signOut();
-                redirectToLogin();
+                createFirebaseUserProfile(Objects.requireNonNull(user));
+                setUpDonationCount(user);
             }else {
                 Toast.makeText(SignupActivity.this,"Registration failed."+ Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -129,6 +131,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return false;
         }
         return true;
+    }
+
+    private void setUpDonationCount(FirebaseUser user){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_DONATIONS_STATS).child(user.getUid());
+
+        HashMap<String, String> donationCount = new HashMap<>();
+        donationCount.put(Constants.DONATIONS_STAT_FIELD, String.valueOf(0));
+
+        reference.setValue(donationCount).addOnCompleteListener(this, insertTask -> {
+            if (insertTask.isSuccessful()){
+                Log.d(TAG, "Initial donation count set");
+                FirebaseAuth.getInstance().signOut();
+                redirectToLogin();
+            } else {
+                Log.d(TAG, "Initial donation count not set", insertTask.getException());
+            }
+        });
     }
 
     private void createFirebaseUserProfile(final FirebaseUser user) {
