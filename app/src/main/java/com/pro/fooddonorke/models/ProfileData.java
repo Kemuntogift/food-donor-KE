@@ -1,8 +1,7 @@
-package com.pro.fooddonorke;
+package com.pro.fooddonorke.models;
 
 public class ProfileData {
-
-    String id;
+    String image;
     String name;
     String email;
     String phone;
@@ -12,21 +11,13 @@ public class ProfileData {
     public ProfileData() {
     }
 
-    public ProfileData(String id, String name, String email, String phone, String location, String description) {
-        this.id = id;
+    public ProfileData(String image, String name, String email, String phone, String location, String description) {
+        this.image = image;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.location = location;
         this.description = description;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -67,5 +58,13 @@ public class ProfileData {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
