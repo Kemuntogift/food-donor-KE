@@ -1,46 +1,34 @@
 package com.pro.fooddonorke.fragment;
 
-import static com.pro.fooddonorke.utilities.Constants.FIREBASE_CHILD_DONATIONS;
-import static com.pro.fooddonorke.utilities.Constants.FIREBASE_CHILD_DONATIONS_STATS;
-
 import static java.lang.Integer.parseInt;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.divider.MaterialDivider;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.pro.fooddonorke.R;
+import com.pro.fooddonorke.dialog.DonationDetailsDialogFragment;
 import com.pro.fooddonorke.models.Charity;
-import com.pro.fooddonorke.utilities.Constants;
 
 import org.parceler.Parcels;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -72,6 +60,7 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
 
     private Charity mRelief;
     public static final String TAG = OrganizationDetailFragment.class.getSimpleName();
+    private DonationDetailsDialogFragment mDonationDetailsFragment;
 
     public OrganizationDetailFragment() {
         // Required empty public constructor
@@ -135,26 +124,27 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == mDonateButton) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String uid = Objects.requireNonNull(user).getUid();
-
-            String pushId = String.format(Locale.ENGLISH,"relief_%d", mRelief.getId());
-
-            DatabaseReference reliefRef = FirebaseDatabase
-                    .getInstance()
-                    .getReference(FIREBASE_CHILD_DONATIONS)
-                    .child(uid).child(pushId);
-
-            mRelief.setPushId(pushId);
-
-            // Begin interaction
-            reliefRef.setValue(mRelief).addOnCompleteListener(requireActivity(), insertTask -> {
-                if (insertTask.isSuccessful()){
-                    Toast.makeText(getContext(), "Thanks for donating!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), Objects.requireNonNull(insertTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+              openDonationDetailsDialog();
+//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//            String uid = Objects.requireNonNull(user).getUid();
+//
+//            String pushId = String.format(Locale.ENGLISH,"relief_%d", mRelief.getId());
+//
+//            DatabaseReference reliefRef = FirebaseDatabase
+//                    .getInstance()
+//                    .getReference(FIREBASE_CHILD_DONATIONS)
+//                    .child(uid).child(pushId);
+//
+//            mRelief.setPushId(pushId);
+//
+//            // Begin interaction
+//            reliefRef.setValue(mRelief).addOnCompleteListener(requireActivity(), insertTask -> {
+//                if (insertTask.isSuccessful()){
+//                    Toast.makeText(getContext(), "Thanks for donating!", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), Objects.requireNonNull(insertTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
 
         // Set implicit intents
@@ -188,5 +178,14 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
             emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mRelief.getContacts().getEmail()});
             startActivity(Intent.createChooser(emailIntent, "Choose an email client: "));
         }
+    }
+
+    private void openDonationDetailsDialog(){
+        // Initialize fragment manager that's responsible for adding, replacing, removing fragments dynamically
+        FragmentManager fragmentManager =((AppCompatActivity) requireActivity()).getSupportFragmentManager();
+        // Initialize the theme selection fragment
+        mDonationDetailsFragment = new DonationDetailsDialogFragment();
+        // Display the theme selection fragment
+        mDonationDetailsFragment.show(fragmentManager, "Donation details dialog fragment");
     }
 }

@@ -5,17 +5,16 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.pro.fooddonorke.R;
-import com.pro.fooddonorke.models.Charity;
+import com.pro.fooddonorke.interfaces.ItemOnClickListener;
 import com.pro.fooddonorke.models.DonationRequest;
-import com.pro.fooddonorke.models.RequestsSearchResponse;
 import com.pro.fooddonorke.ui.OrganizationDetailActivity;
 
 import org.parceler.Parcels;
@@ -25,25 +24,29 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.DonationViewHolder> {
+public class DonationRequestAdapter extends RecyclerView.Adapter<DonationRequestAdapter.DonationViewHolder> {
     private List<DonationRequest> mDonations;
     private Context mContext;
+    private ItemOnClickListener mListener;
 
-    public DonationAdapter(Context context, List<DonationRequest> donations) {
+    public DonationRequestAdapter(Context context, List<DonationRequest> donations, ItemOnClickListener listener) {
         mContext = context;
         mDonations = donations;
+        mListener = listener;
     }
 
     @NonNull
     @Override
-    public DonationAdapter.DonationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_organization_list, parent, false);
+    public DonationRequestAdapter.DonationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_request_list, parent, false);
         return new DonationViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DonationAdapter.DonationViewHolder holder, int position) {
-        holder.bindDonation(mDonations.get(position));
+    public void onBindViewHolder(DonationRequestAdapter.DonationViewHolder holder, int position) {
+        DonationRequest donationRequest = mDonations.get(position);
+        holder.bindDonation(donationRequest);
+        holder.itemView.setOnClickListener(view -> mListener.openCharityDetails(donationRequest.getCharityId()));
     }
 
     @Override
@@ -55,6 +58,8 @@ public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.Donati
         @BindView(R.id.org_name) TextView mNameTextView;
         @BindView(R.id.org_type) TextView mTypeTextView;
         @BindView(R.id.org_location) TextView mLocationTextView;
+        @BindView(R.id.org_image)
+        ShapeableImageView requestImage;
 
         private Context mContext;
 
@@ -65,17 +70,15 @@ public class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.Donati
             itemView.setOnClickListener(this);
         }
         public void bindDonation(DonationRequest donation) {
+            Glide.with(mContext).asBitmap().load(R.drawable.heart_freepik).into(requestImage);
             mNameTextView.setText(donation.getMessage());
             mTypeTextView.setText(donation.getCreatedAt());
             mLocationTextView.setText(donation.getLocation());
         }
+
         @Override
         public void onClick(View v) {
-            int itemPosition = getLayoutPosition();
-            Intent intent = new Intent(mContext, OrganizationDetailActivity.class);
-            intent.putExtra("position", itemPosition);
-            intent.putExtra("donations", Parcels.wrap(mDonations));
-            mContext.startActivity(intent);
+
         }
     }
 }
