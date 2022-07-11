@@ -1,5 +1,6 @@
 package com.pro.fooddonorke.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pro.fooddonorke.R;
+import com.pro.fooddonorke.ui.HomeActivity;
+import com.pro.fooddonorke.ui.ProfileActivity;
 
 import java.util.Objects;
 
@@ -47,6 +49,13 @@ public class HomeFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     ButterKnife.bind(this,view);
 
+    profileButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(getContext(), ProfileActivity.class);
+        startActivity(intent);
+      }
+    });
     AppCompatActivity activity = (AppCompatActivity) getActivity();
 
     if (activity != null) {
