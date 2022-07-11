@@ -30,6 +30,7 @@
           android:orientation="vertical">
 
         <TextView
+            style="@style/BoldTextStyle"
             android:id="@+id/no_of_charities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,12 +59,13 @@
           android:orientation="vertical">
 
         <TextView
+            style="@style/BoldTextStyle"
             android:id="@+id/no_of_donations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/food_donor_darker_blue"
             android:textSize="30sp"
-            android:text="0"
+            android:text="@string/no_of_donations"
             android:textStyle="bold"
              />
 

@@ -46,6 +46,7 @@
             android:layout_marginStart="@dimen/default_margin"
             android:src="@drawable/ic_baseline_business"
             android:contentDescription="@string/content_desc_org_icon"
+            app:tint="@color/food_donor_darker_blue"
             />
 
         <TextView
@@ -71,6 +72,7 @@
             android:layout_marginTop="@dimen/margin"
             android:src="@drawable/ic_baseline_location"
             android:contentDescription="@string/content_desc_location"
+            app:tint="@color/food_donor_darker_blue"
             />
 
         <TextView
@@ -96,7 +98,8 @@
             app:layout_constraintEnd_toStartOf="@id/twitter_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/location_icon"
-            android:focusable="true" />
+            android:focusable="true"
+            app:tint="@color/food_donor_darker_blue"/>
 
         <ImageView
             android:id="@+id/twitter_image"
@@ -109,7 +112,8 @@
             app:layout_constraintEnd_toStartOf="@id/facebook_image"
             app:layout_constraintStart_toEndOf="@id/phone_image"
             app:layout_constraintTop_toBottomOf="@id/location_icon"
-            android:focusable="true" />
+            android:focusable="true"
+            app:tint="@color/food_donor_darker_blue"/>
 
         <ImageView
             android:id="@+id/facebook_image"
@@ -123,7 +127,7 @@
             app:layout_constraintStart_toEndOf="@id/twitter_image"
             app:layout_constraintTop_toBottomOf="@id/location_icon"
             android:focusable="true"
-            />
+            app:tint="@color/food_donor_darker_blue"/>
 
         <ImageView
             android:id="@+id/instagram_image"
@@ -137,7 +141,7 @@
             app:layout_constraintStart_toEndOf="@id/facebook_image"
             app:layout_constraintTop_toBottomOf="@id/location_icon"
             android:focusable="true"
-            />
+            app:tint="@color/food_donor_darker_blue"/>
 
         <ImageView
             android:id="@+id/mail_image"
@@ -152,7 +156,7 @@
             app:layout_constraintStart_toEndOf="@id/instagram_image"
             app:layout_constraintTop_toBottomOf="@id/location_icon"
             android:focusable="true"
-            />
+            app:tint="@color/food_donor_darker_blue"/>
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider"

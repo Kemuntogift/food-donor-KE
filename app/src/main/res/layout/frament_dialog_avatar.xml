@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+  <ImageView
+      android:id="@+id/camera_icon"
+      android:layout_width="@dimen/larger_dimension"
+      android:layout_height="@dimen/larger_dimension"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/default_margin"
+      android:scaleType="fitCenter"
+      app:layout_constraintEnd_toStartOf="@+id/guideline3"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_baseline_photo_camera"
+      app:tint="@color/food_donor_darker_blue"
+      android:contentDescription="@string/content_desc_camera_icon" />
+
+  <ImageView
+      android:id="@+id/gallery_icon"
+      android:layout_width="@dimen/larger_dimension"
+      android:layout_height="@dimen/larger_dimension"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/default_margin"
+      android:scaleType="fitCenter"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/guideline3"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_baseline_insert_photo"
+      app:tint="@color/food_donor_darker_blue"
+      android:contentDescription="@string/content_desc_gallery_icon"/>
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_begin="20dp"
+      app:layout_constraintGuide_percent="0.50" />
+
+  <TextView
+      android:id="@+id/camera_text_view"
+      style="@style/NormalTextStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin"
+      android:layout_marginBottom="@dimen/margin"
+      android:text="@string/camera"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/guideline3"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/camera_icon" />
+
+  <TextView
+      android:id="@+id/gallery_text_view"
+      style="@style/NormalTextStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin"
+      android:layout_marginBottom="@dimen/margin"
+      android:text="@string/gallery"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/guideline3"
+      app:layout_constraintTop_toBottomOf="@+id/gallery_icon" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,7 +38,7 @@
           android:layout_toStartOf="@id/profilePicId"
           android:text="@string/welcome_subtitle" />
 
-      <ImageView
+      <com.google.android.material.imageview.ShapeableImageView
           android:id="@+id/profilePicId"
           android:layout_width="@dimen/home_image_dimension"
           android:layout_height="@dimen/home_image_dimension"
@@ -48,7 +48,8 @@
           android:layout_marginTop="@dimen/triple_margin"
           android:layout_marginEnd="@dimen/default_margin"
           android:contentDescription="@string/content_profile_desc"
-          android:src="@drawable/profile" />
+          android:src="@drawable/profile"
+          app:shapeAppearanceOverlay="@style/CircularImageStyle" />
 
     </RelativeLayout>
 
@@ -65,32 +66,41 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/profile_icon"
+            android:layout_width="@dimen/larger_dimension_2"
+            android:layout_height="@dimen/larger_dimension_2"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/quadraple_margin"
+            android:src="@drawable/ic_baseline_account_circle"
+            android:contentDescription="@string/content_desc_user_account_icon"/>
+
         <TextView
             android:id="@+id/view_profile"
             style="@style/NormalTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/triple_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:gravity="center_horizontal"
+            android:layout_toEndOf="@id/profile_icon"
             android:text="@string/view_profile" />
 
         <Button
             android:id="@+id/profileButtonId"
             style="@style/ButtonStyle"
-            android:layout_width="@dimen/home_button_dimension"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_profile"
-            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginBottom="@dimen/margin"
+            android:layout_toEndOf="@id/profile_icon"
             android:gravity="center_horizontal"
             android:text="@string/profile" />
       </RelativeLayout>

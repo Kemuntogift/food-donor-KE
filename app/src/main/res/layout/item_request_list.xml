@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/org_image"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_marginTop="@dimen/triple_margin"
+      android:layout_marginEnd="@dimen/quadraple_margin"
+      app:tint="@color/food_donor_darker_blue"
+      android:scaleType="centerCrop"
+      app:layout_constraintEnd_toStartOf="@+id/guideline2"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:shapeAppearance="@style/RoundedCornersStyle"
+      app:srcCompat="@drawable/ic_baseline_business" />
+
+  <com.google.android.material.divider.MaterialDivider
+      android:id="@+id/divider"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/triple_margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/org_image" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_begin="20dp"
+      app:layout_constraintGuide_percent="@fraction/guideline" />
+
+  <TextView
+      android:id="@+id/org_name"
+      style="@style/BoldTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/triple_margin"
+      android:layout_marginEnd="@dimen/margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/guideline2"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="@string/org_name" />
+
+  <TextView
+      android:id="@+id/org_type"
+      style="@style/NormalTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin"
+      android:layout_marginEnd="@dimen/margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/guideline2"
+      app:layout_constraintTop_toBottomOf="@+id/org_name"
+      tools:text="@string/org_type" />
+
+  <TextView
+      android:id="@+id/org_location"
+      style="@style/NormalTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/margin"
+      android:layout_marginBottom="@dimen/default_margin"
+      android:textStyle="italic"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/org_type"
+      app:layout_constraintBottom_toTopOf="@id/divider"
+      tools:text="@string/location" />
+
+  <ImageView
+      android:id="@+id/location_icon2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/margin"
+      android:layout_marginBottom="@dimen/default_margin"
+      android:contentDescription="@string/content_desc_location"
+      app:layout_constraintEnd_toStartOf="@+id/org_location"
+      app:layout_constraintTop_toBottomOf="@+id/org_type"
+      app:layout_constraintBottom_toTopOf="@id/divider"
+      app:srcCompat="@drawable/ic_baseline_location" />
+
+  <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/barrier2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:barrierDirection="start"
+      app:constraint_referenced_ids="org_name, org_type, location_icon2" />
+</androidx.constraintlayout.widget.ConstraintLayout>
