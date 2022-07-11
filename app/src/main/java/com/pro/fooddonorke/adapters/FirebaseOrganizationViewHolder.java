@@ -2,6 +2,7 @@ package com.pro.fooddonorke.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.models.Charity;
-import com.pro.fooddonorke.ui.DonationActivity;
 import com.pro.fooddonorke.ui.OrganizationDetailActivity;
 import com.pro.fooddonorke.utilities.Constants;
 
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class FirebaseOrganizationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+    public static final String TAG = FirebaseOrganizationViewHolder.class.getSimpleName();
     View mView;
     Context mContext;
 
@@ -37,33 +37,30 @@ public class FirebaseOrganizationViewHolder extends RecyclerView.ViewHolder impl
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
+        mView.setOnClickListener(this);
     }
 
     public void bindRelief(Charity mRelief) {
 
-        ImageView mOrganizationImageView = (ImageView) mView.findViewById(R.id.org_image);
-        TextView mNameTextView = (TextView) mView.findViewById(R.id.org_name);
-        TextView mTypeTextView = (TextView) mView.findViewById(R.id.org_type);
-        TextView mLocationTextView = (TextView) mView.findViewById(R.id.org_location);
+        ImageView mOrganizationImageView = mView.findViewById(R.id.org_image);
+        TextView mNameTextView = mView.findViewById(R.id.org_name);
+        TextView mTypeTextView = mView.findViewById(R.id.org_type);
+        TextView mLocationTextView = mView.findViewById(R.id.org_location);
 
         Glide.with(mContext).asBitmap().load(mRelief.getImage()).placeholder(R.drawable.ic_baseline_business).into(mOrganizationImageView);
         mNameTextView.setText(mRelief.getName());
         mTypeTextView.setText(mRelief.getType());
         mLocationTextView.setText(mRelief.getLocation());
-
-        mView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
 
-        // declare the donations arraylists
-
-        final ArrayList<Charity> mRelief = new ArrayList();
+        // Declare the donations arraylists
+        final ArrayList<Charity> mRelief = new ArrayList<>();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = Objects.requireNonNull(user).getUid();
-
 
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference(Constants.FIREBASE_CHILD_DONATIONS)
@@ -73,24 +70,21 @@ public class FirebaseOrganizationViewHolder extends RecyclerView.ViewHolder impl
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-
                     mRelief.add(dataSnapshot.getValue(Charity.class));
-
                 }
 
                 int itemPosition = getLayoutPosition();
 
+                // Open details activity
                 Intent intent = new Intent(mContext, OrganizationDetailActivity.class);
-
                 intent.putExtra("position", itemPosition);
                 intent.putExtra("reliefs", Parcels.wrap(mRelief));
-
                 mContext.startActivity(intent);
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(TAG, "Error while fetching donations", error.toException());
             }
         });
     }
