@@ -60,14 +60,16 @@
 
     <TextView
         android:id="@+id/errorTextView"
+        style="@style/NormalTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/searchText"
         android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
         android:layout_centerInParent="true"
-        tools:text="@string/error"
-        android:visibility="gone" />
+        android:layout_marginTop="@dimen/larger_margin"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        tools:text="@string/error" />
 
   </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

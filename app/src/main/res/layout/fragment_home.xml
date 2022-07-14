@@ -73,8 +73,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/quadraple_margin"
-            android:src="@drawable/ic_baseline_account_circle"
-            android:contentDescription="@string/content_desc_user_account_icon"/>
+            android:contentDescription="@string/content_desc_user_account_icon"
+            android:src="@drawable/freepik_programmer" />
 
         <TextView
             android:id="@+id/view_profile"
