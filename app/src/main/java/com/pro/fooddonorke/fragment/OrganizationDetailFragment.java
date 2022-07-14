@@ -11,25 +11,34 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.divider.MaterialDivider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.dialog.DonationDetailsDialogFragment;
 import com.pro.fooddonorke.models.Charity;
+import com.pro.fooddonorke.utilities.Constants;
 
 import org.parceler.Parcels;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,26 +133,7 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
     public void onClick(View v) {
         if (v == mDonateButton) {
               openDonationDetailsDialog();
-//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//            String uid = Objects.requireNonNull(user).getUid();
-//
-//            String pushId = String.format(Locale.ENGLISH,"relief_%d", mRelief.getId());
-//
-//            DatabaseReference reliefRef = FirebaseDatabase
-//                    .getInstance()
-//                    .getReference(FIREBASE_CHILD_DONATIONS)
-//                    .child(uid).child(pushId);
-//
-//            mRelief.setPushId(pushId);
-//
-//            // Begin interaction
-//            reliefRef.setValue(mRelief).addOnCompleteListener(requireActivity(), insertTask -> {
-//                if (insertTask.isSuccessful()){
-//                    Toast.makeText(getContext(), "Thanks for donating!", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(getContext(), Objects.requireNonNull(insertTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            });
+              saveToDatabase();
         }
 
         // Set implicit intents
@@ -176,6 +166,29 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
                     Uri.parse(mRelief.getWebsite()));
             startActivity(webIntent);
         }
+    }
+
+    private void saveToDatabase(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = Objects.requireNonNull(user).getUid();
+
+        String pushId = String.format(Locale.ENGLISH,"relief_%d", mRelief.getId());
+
+        DatabaseReference reliefRef = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_DONATIONS)
+                .child(uid).child(pushId);
+
+        mRelief.setPushId(pushId);
+
+        // Begin interaction
+        reliefRef.setValue(mRelief).addOnCompleteListener(requireActivity(), insertTask -> {
+            if (insertTask.isSuccessful()){
+                Log.d(TAG, "Ongoing donation saved");
+            } else {
+                Toast.makeText(getContext(), Objects.requireNonNull(insertTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void openDonationDetailsDialog(){
