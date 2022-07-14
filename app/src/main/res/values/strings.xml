@@ -73,4 +73,8 @@
   <string name="content_desc_gallery_icon">Gallery icon to launch gallery</string>
   <string name="no_of_donations">0</string>
   <string name="content_desc_add_donation_item">Button to  add donation items</string>
+  <string name="empty_input">Input required</string>
+  <string name="successful_verification">Verification email sent</string>
+  <string name="verification_prompt">Kindly verify your email before proceeding</string>
+  <string name="log_out">Log out</string>
 </resources>
