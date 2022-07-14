@@ -115,6 +115,22 @@
         android:textColor="@color/food_donor_black"
         android:layout_marginTop="16dp"/>
 
+    <ProgressBar
+        android:id="@+id/loading_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/quadraple_margin"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loading"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_gravity="center_horizontal"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listId"
         android:layout_width="match_parent"
@@ -122,6 +138,7 @@
         android:layout_marginStart="@dimen/default_margin"
         android:layout_marginEnd="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
+        android:visibility="gone"
         tools:listitem="@layout/item_organization_list">
 
     </androidx.recyclerview.widget.RecyclerView>
