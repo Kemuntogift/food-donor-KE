@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/color/dark_bg_stroke_color.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/baseline_language_24.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/btn.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/dark_bg_stroke_color.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/edittext.xml" value="0.178" />
