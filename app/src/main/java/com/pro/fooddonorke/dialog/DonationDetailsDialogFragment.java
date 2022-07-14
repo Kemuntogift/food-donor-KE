@@ -125,6 +125,7 @@ public class DonationDetailsDialogFragment extends DialogFragment {
   }
 
   private void sendMail(String email, String subject, String body){
+    dismiss();
     Intent emailIntent = new Intent(Intent.ACTION_SEND);
     emailIntent.setType("message/rfc822"); // Only email apps handle this intent
     emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
