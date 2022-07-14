@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = SignupActivity.class.getSimpleName();
     private String mName;
+    private String mEmail;
 
     @BindView(R.id.signup_btn) Button mCreateUserButton;
     @BindView(R.id.nameOutlinedTextField)
@@ -78,11 +79,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     private void createNewUser() {
         mName = Objects.requireNonNull(mNameEditText.getEditText()).getText().toString().trim();
-        final String email = Objects.requireNonNull(mEmailEditText.getEditText()).getText().toString().trim();
+        mEmail = Objects.requireNonNull(mEmailEditText.getEditText()).getText().toString().trim();
         String password = Objects.requireNonNull(mPasswordEditText.getEditText()).getText().toString().trim();
         String confirmPassword = Objects.requireNonNull(mConfirmPasswordEditText.getEditText()).getText().toString().trim();
 
-        boolean validEmail = isValidEmail(email);
+        boolean validEmail = isValidEmail(mEmail);
         boolean validName = isValidName(mName);
         boolean validPassword = isValidPassword(password, confirmPassword);
         if (!validEmail || !validName || !validPassword) {
@@ -90,11 +91,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+        mAuth.createUserWithEmailAndPassword(mEmail, password).addOnCompleteListener(this, task -> {
             hideProgressBar();
             if (task.isSuccessful()){
                 final FirebaseUser user = task.getResult().getUser();
                 Log.d(TAG, "Registration successful");
+                verifyEmail(Objects.requireNonNull(user));
                 createFirebaseUserProfile(Objects.requireNonNull(user));
                 setUpDonationCount(user);
             }else {
@@ -162,6 +164,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignupActivity.this, "The display name has ben set", Toast.LENGTH_LONG).show();
                     }
                 });
+
+        user.updateEmail(mEmail).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                Log.d(TAG, "Email has been updated");
+            }
+        });
+    }
+
+    private void verifyEmail(FirebaseUser user){
+        user.sendEmailVerification().addOnCompleteListener(this, verifyTask -> {
+            if (verifyTask.isSuccessful()){
+                Toast.makeText(getApplicationContext(), R.string.successful_verification, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), Objects.requireNonNull(verifyTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Error sending email verification", verifyTask.getException());
+            }
+        });
     }
 
     private void showProgressBar() {

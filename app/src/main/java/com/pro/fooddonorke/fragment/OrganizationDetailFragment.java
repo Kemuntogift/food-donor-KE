@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.divider.MaterialDivider;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.dialog.DonationDetailsDialogFragment;
 import com.pro.fooddonorke.models.Charity;
@@ -29,7 +30,6 @@ import com.pro.fooddonorke.models.Charity;
 import org.parceler.Parcels;
 
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,15 +38,14 @@ import butterknife.ButterKnife;
 public class OrganizationDetailFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.org_image_detail) ImageView mOrganizationDetailImage;
     @BindView(R.id.org_name) TextView mOrganizationName;
-    @BindView(R.id.org_icon) ImageView mOrganizationIcon;
     @BindView(R.id.org_type) TextView mOrganizationType;
-    @BindView(R.id.location_icon) ImageView mLocationIcon;
     @BindView(R.id.org_location) TextView mOrganizationLocation;
-    @BindView(R.id.phone_image) ImageView mPhoneImage;
-    @BindView(R.id.twitter_image) ImageView mTwitterImage;
-    @BindView(R.id.facebook_image) ImageView mFacebookImage;
-    @BindView(R.id.instagram_image) ImageView mInstagramImage;
-    @BindView(R.id.mail_image) ImageView mEmailImage;
+    @BindView(R.id.phone_fab)
+    FloatingActionButton mPhoneFab;
+    @BindView(R.id.twitter_fab) FloatingActionButton mTwitterFab;
+    @BindView(R.id.facebook_fab) FloatingActionButton mFacebookFab;
+    @BindView(R.id.instagram_fab) FloatingActionButton mInstagramFab;
+    @BindView(R.id.web_fab) FloatingActionButton mWebFab;
     @BindView(R.id.divider) MaterialDivider mDivider;
     @BindView(R.id.food_donation_title) TextView mFoodDonationTitle;
     @BindView(R.id.food_donation_types) ChipGroup mFoodDonationType;
@@ -113,11 +112,11 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         }
 
         mDonateButton.setOnClickListener(this);
-        mPhoneImage.setOnClickListener(this);
-        mTwitterImage.setOnClickListener(this);
-        mFacebookImage.setOnClickListener(this);
-        mInstagramImage.setOnClickListener(this);
-        mEmailImage.setOnClickListener(this);
+        mPhoneFab.setOnClickListener(this);
+        mTwitterFab.setOnClickListener(this);
+        mFacebookFab.setOnClickListener(this);
+        mInstagramFab.setOnClickListener(this);
+        mWebFab.setOnClickListener(this);
 
         return view;
     }
@@ -148,35 +147,34 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         }
 
         // Set implicit intents
-        if (v == mPhoneImage){
+        if (v == mPhoneFab){
             Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
                     Uri.parse("tel:" + mRelief.getContacts().getPhone()));
             startActivity(phoneIntent);
         }
 
-        if (v == mTwitterImage){
+        if (v == mTwitterFab){
             Intent twitterIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getTwitter()));
             startActivity(twitterIntent);
         }
 
-        if (v == mFacebookImage){
+        if (v == mFacebookFab){
             Intent facebookIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getFacebook()));
             startActivity(facebookIntent);
         }
 
-        if (v == mInstagramImage){
+        if (v == mInstagramFab){
             Intent instagramIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getInstagram()));
             startActivity(instagramIntent);
         }
 
-        if (v == mEmailImage){
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("message/rfc822");   // Only email apps handle this intent
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mRelief.getContacts().getEmail()});
-            startActivity(Intent.createChooser(emailIntent, "Choose an email client: "));
+        if (v == mWebFab){
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mRelief.getWebsite()));
+            startActivity(webIntent);
         }
     }
 
@@ -184,7 +182,7 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         // Initialize fragment manager that's responsible for adding, replacing, removing fragments dynamically
         FragmentManager fragmentManager =((AppCompatActivity) requireActivity()).getSupportFragmentManager();
         // Initialize the theme selection fragment
-        mDonationDetailsFragment = new DonationDetailsDialogFragment();
+        mDonationDetailsFragment = DonationDetailsDialogFragment.newInstance(mRelief.getContacts().getEmail());
         // Display the theme selection fragment
         mDonationDetailsFragment.show(fragmentManager, "Donation details dialog fragment");
     }

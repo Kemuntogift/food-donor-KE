@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment implements ItemOnClickListener {
     }
 
     auth  = FirebaseAuth.getInstance();
+    Glide.with(requireContext()).asBitmap().load(Objects.requireNonNull(auth.getCurrentUser()).getPhotoUrl()).placeholder(R.drawable.profile).into(profilePic);
     profileDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PROFILE).child(Objects.requireNonNull(auth.getCurrentUser()).getUid());
     setWelcomeText();
     setUpProfileButton();
@@ -118,9 +119,10 @@ public class HomeFragment extends Fragment implements ItemOnClickListener {
         if (snapshot.exists()){
           ProfileData profileData = snapshot.getValue(ProfileData.class);
           if (profileData != null){
-            Glide.with(requireContext()).asBitmap().load(profileData.getImage()).placeholder(R.drawable.profile).into(profilePic);
             loadDonationRequests(profileData.getLocation());
           }
+        } else {
+          loadDonationRequests("Nairobi");
         }
       }
 

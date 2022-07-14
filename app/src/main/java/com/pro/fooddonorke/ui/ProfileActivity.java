@@ -32,6 +32,8 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,7 +57,7 @@ import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity implements ImageCaptureListener {
     public static final String TAG = ProfileActivity.class.getSimpleName();
-    TextInputLayout name, email, phone, location, description;
+    TextInputLayout name, phone, location, description;
     Button updateButton;
     ImageView profileImage;
 
@@ -64,8 +66,8 @@ public class ProfileActivity extends AppCompatActivity implements ImageCaptureLi
     private ValueEventListener profileDataListener;
     private boolean storagePermission = false;
     private SetAvatarDialogFragment setAvatarDialogFragment;
-    private String userId;
     private StorageReference mStorageReference;
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     ActivityResultLauncher<String[]> requestStoragePermission = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
             result -> {
@@ -84,14 +86,13 @@ public class ProfileActivity extends AppCompatActivity implements ImageCaptureLi
         setContentView(R.layout.activity_profile);
 
         name = findViewById(R.id.name);
-        email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
         location = findViewById(R.id.location);
         description = findViewById(R.id.description);
         updateButton = findViewById(R.id.updateButton);
         profileImage = findViewById(R.id.profileImage);
 
-        userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        String userId = user.getUid();
         root = db.getReference(Constants.FIREBASE_CHILD_PROFILE).child(userId);
         mStorageReference = FirebaseStorage.getInstance().getReference(Constants.FOOD_DONORS).child(userId).child(Constants.STORAGE_AVATAR);
 
@@ -123,7 +124,6 @@ public class ProfileActivity extends AppCompatActivity implements ImageCaptureLi
         // Gather input
         String profileName = Objects.requireNonNull(name.getEditText()).getText().toString();
         String profilePhone = Objects.requireNonNull(phone.getEditText()).getText().toString();
-        String profileEmail = Objects.requireNonNull(email.getEditText()).getText().toString();
         String profileLocation = Objects.requireNonNull(location.getEditText()).getText().toString();
         String profileDescription = Objects.requireNonNull(description.getEditText()).getText().toString();
         Bitmap bitmap = ((BitmapDrawable) profileImage.getDrawable()).getBitmap();
@@ -148,7 +148,9 @@ public class ProfileActivity extends AppCompatActivity implements ImageCaptureLi
                 })
                 .addOnCompleteListener(this, insertTask -> {
                     if (insertTask.isSuccessful()){
-                        ProfileData profileData = new ProfileData(insertTask.getResult().toString(), profileName, profileEmail, profilePhone, profileLocation, profileDescription);
+                        updateFirebaseProfile(insertTask.getResult().toString(), profileName);
+
+                        ProfileData profileData = new ProfileData(profilePhone, profileLocation, profileDescription);
 
                         root.setValue(profileData).addOnCompleteListener(ProfileActivity.this, updateTask -> {
                             if (updateTask.isSuccessful()){
@@ -160,6 +162,22 @@ public class ProfileActivity extends AppCompatActivity implements ImageCaptureLi
                     }
                 });
 
+    }
+
+    private void updateFirebaseProfile(String imageUrl, String name){
+        UserProfileChangeRequest changeRequest = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .setPhotoUri(Uri.parse(imageUrl))
+                .build();
+
+        user.updateProfile(changeRequest)
+                .addOnCompleteListener(this, updateTask -> {
+                    if (updateTask.isSuccessful()){
+                        Log.d(TAG, "Firebase profile updated");
+                    } else {
+                        Log.e(TAG, "Firebase profile not updated", updateTask.getException());
+                    }
+                });
     }
 
     private byte[] compressImage(Bitmap bitmap){
@@ -176,12 +194,11 @@ public class ProfileActivity extends AppCompatActivity implements ImageCaptureLi
                 if (snapshot.exists()){
                     ProfileData profileData = snapshot.getValue(ProfileData.class);
 
-                    Objects.requireNonNull(name.getEditText()).setText(profileData != null ? profileData.getName() : "");
-                    Objects.requireNonNull(email.getEditText()).setText(profileData != null ? profileData.getEmail() : "");
+                    Objects.requireNonNull(name.getEditText()).setText(profileData != null ? Objects.requireNonNull(user).getDisplayName() : "");
                     Objects.requireNonNull(phone.getEditText()).setText(profileData != null ? profileData.getPhone() : "");
                     Objects.requireNonNull(location.getEditText()).setText(profileData != null ? profileData.getLocation() : "");
                     Objects.requireNonNull(description.getEditText()).setText(profileData != null ? profileData.getDescription() : "");
-                    Glide.with(getApplicationContext()).asBitmap().load(Objects.requireNonNull(profileData).getImage()).placeholder(R.drawable.ic_baseline_account_circle).into(profileImage);
+                    Glide.with(getApplicationContext()).asBitmap().load(Objects.requireNonNull(user).getPhotoUrl()).placeholder(R.drawable.ic_baseline_account_circle).into(profileImage);
                 }
 
             }
