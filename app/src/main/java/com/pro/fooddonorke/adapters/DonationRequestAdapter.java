@@ -70,7 +70,7 @@ public class DonationRequestAdapter extends RecyclerView.Adapter<DonationRequest
             itemView.setOnClickListener(this);
         }
         public void bindDonation(DonationRequest donation) {
-            Glide.with(mContext).asBitmap().load(R.drawable.heart_freepik).into(requestImage);
+            Glide.with(mContext).asBitmap().load(R.drawable.healthcare).into(requestImage);
             mNameTextView.setText(donation.getMessage());
             mTypeTextView.setText(donation.getCreatedAt());
             mLocationTextView.setText(donation.getLocation());
