@@ -97,6 +97,7 @@
     <item name="android:textAppearance">@style/NormalTextStyle</item>
   </style>
 
-
-  <dimen name="padding_2">20dp</dimen>
+  <style name="InputChipStyle" parent="Widget.MaterialComponents.Chip.Entry">
+    <item name="android:textAppearance">@style/NormalTextStyle</item>
+  </style>
 </resources>
