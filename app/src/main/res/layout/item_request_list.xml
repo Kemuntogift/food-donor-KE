@@ -11,7 +11,6 @@
       android:layout_height="60dp"
       android:layout_marginTop="@dimen/triple_margin"
       android:layout_marginEnd="@dimen/quadraple_margin"
-      app:tint="@color/food_donor_darker_blue"
       android:scaleType="centerCrop"
       app:layout_constraintEnd_toStartOf="@+id/guideline2"
       app:layout_constraintStart_toStartOf="parent"
