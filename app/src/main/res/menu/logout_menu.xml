@@ -4,6 +4,6 @@
     <item
         android:id="@+id/log_out"
         android:icon="@drawable/ic_baseline_logout"
-        app:showAsAction="collapseActionView|ifRoom"
-        app:actionViewClass="android.widget.SearchView" />
+        android:title="@string/log_out"
+        app:showAsAction="collapseActionView|ifRoom" />
 </menu>
