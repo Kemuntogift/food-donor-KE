@@ -65,7 +65,7 @@
         android:layout_marginBottom="@dimen/quadraple_margin"
         android:cropToPadding="false"
         android:src="@drawable/ic_baseline_arrow_right_alt_24"
-        app:fabSize="auto"
+        app:fabCustomSize="@dimen/larger_dimension_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
