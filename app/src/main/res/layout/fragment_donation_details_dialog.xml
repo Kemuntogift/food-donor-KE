@@ -53,7 +53,7 @@
 
   </com.google.android.material.textfield.TextInputLayout>
 
-  <ImageButton
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/btn_add"
       style="@style/ImageButtonStyle"
       android:layout_width="60dp"
@@ -68,7 +68,7 @@
       android:contentDescription="@string/content_desc_add_donation_item" />
 
   <Button
-      android:id="@+id/button"
+      android:id="@+id/btn_send_mail"
       style="@style/ButtonStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
