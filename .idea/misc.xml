@@ -16,10 +16,13 @@
         <entry key="app/src/main/res/drawable/login_bg_img.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/multiline_input.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/mybuttons.xml" value="0.178" />
+        <entry key="app/src/main/res/font/poller_one.xml" value="0.17432432432432432" />
+        <entry key="app/src/main/res/font/poppins_medium.xml" value="0.17432432432432432" />
         <entry key="app/src/main/res/layout/activity_donation.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/layout/activity_onboarding.xml" value="0.1481981981981982" />
         <entry key="app/src/main/res/layout/activity_organization_detail.xml" value="0.1484375" />
         <entry key="app/src/main/res/layout/activity_organization_list.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.22" />
@@ -34,6 +37,7 @@
         <entry key="app/src/main/res/layout/frament_dialog_avatar.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_organization_list.xml" value="0.2749094202898551" />
         <entry key="app/src/main/res/layout/item_request_list.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/slider_layout.xml" value="0.22" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1703125" />
         <entry key="app/src/main/res/menu/logout_menu.xml" value="0.17135416666666667" />
       </map>
