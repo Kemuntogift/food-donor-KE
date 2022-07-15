@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,6 +68,12 @@ public class HomeFragment extends Fragment implements ItemOnClickListener {
   TextView welcomeText;
   @BindView(R.id.profilePicId)
   ShapeableImageView profilePic;
+  @BindView(R.id.view_profile)
+  TextView viewProfileText;
+  @BindView(R.id.quote)
+  TextView quote;
+  @BindView(R.id.profile_icon)
+  ImageView profileIcon;
 
   private FirebaseAuth auth;
   private DonationRequestAdapter mAdapter;
@@ -100,6 +109,7 @@ public class HomeFragment extends Fragment implements ItemOnClickListener {
     auth  = FirebaseAuth.getInstance();
     Glide.with(requireContext()).asBitmap().load(Objects.requireNonNull(auth.getCurrentUser()).getPhotoUrl()).placeholder(R.drawable.profile).into(profilePic);
     profileDataReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PROFILE).child(Objects.requireNonNull(auth.getCurrentUser()).getUid());
+    addAnimations();
     setWelcomeText();
     setUpProfileButton();
     setUpProfileListener();
@@ -202,6 +212,32 @@ public class HomeFragment extends Fragment implements ItemOnClickListener {
         Log.d(TAG, "Error fetching list of charities", t);
       }
     });
+  }
+
+  private void addAnimations(){
+    YoYo.with(Techniques.ZoomIn)
+            .duration(700)
+            .playOn(welcomeText);
+
+    YoYo.with(Techniques.ZoomIn)
+            .duration(700)
+            .playOn(profilePic);
+
+    YoYo.with(Techniques.ZoomIn)
+            .duration(700)
+            .playOn(profileButton);
+
+    YoYo.with(Techniques.ZoomIn)
+            .duration(700)
+            .playOn(viewProfileText);
+
+    YoYo.with(Techniques.ZoomIn)
+            .duration(700)
+            .playOn(quote);
+
+    YoYo.with(Techniques.ZoomIn)
+            .duration(700)
+            .playOn(profileIcon);
   }
 
   @Override

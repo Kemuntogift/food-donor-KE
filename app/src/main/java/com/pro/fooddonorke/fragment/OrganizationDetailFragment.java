@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.divider.MaterialDivider;
@@ -127,8 +129,73 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         mInstagramFab.setOnClickListener(this);
         mWebFab.setOnClickListener(this);
 
+        addAnimations();
+
         return view;
     }
+
+    private void addAnimations(){
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mOrganizationName);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mOrganizationType);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mOrganizationLocation);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mPhoneFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mTwitterFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mInstagramFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mFacebookFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mWebFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mFoodDonationTitle);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mFoodDonationType);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mBriefDescription);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mImageOne);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mImageTwo);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mImageThree);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mDonateButton);
+    }
+
     @Override
     public void onClick(View v) {
         if (v == mDonateButton) {

@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.interfaces.ItemOnClickListener;
@@ -74,6 +76,22 @@ public class DonationRequestAdapter extends RecyclerView.Adapter<DonationRequest
             mNameTextView.setText(donation.getMessage());
             mTypeTextView.setText(donation.getCreatedAt());
             mLocationTextView.setText(donation.getLocation());
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .playOn(mNameTextView);
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .playOn(mTypeTextView);
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .playOn(mLocationTextView);
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .playOn(requestImage);
         }
 
         @Override

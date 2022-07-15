@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -100,6 +102,13 @@ public class DonationListFragment extends Fragment {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
         mNoOfCharities.setText(String.valueOf(snapshot.getChildrenCount()));
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mNoOfCharities);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mNoOfDonations);
 
         if (!snapshot.hasChildren()){
           showError(getString(R.string.no_donations));

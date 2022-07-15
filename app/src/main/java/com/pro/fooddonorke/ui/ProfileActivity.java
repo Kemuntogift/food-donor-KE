@@ -28,6 +28,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -91,6 +93,8 @@ public class ProfileActivity extends AppCompatActivity implements ImageCaptureLi
         description = findViewById(R.id.description);
         updateButton = findViewById(R.id.updateButton);
         profileImage = findViewById(R.id.profileImage);
+
+        addAnimations();
 
         String userId = user.getUid();
         root = db.getReference(Constants.FIREBASE_CHILD_PROFILE).child(userId);
@@ -208,6 +212,33 @@ public class ProfileActivity extends AppCompatActivity implements ImageCaptureLi
                 Log.d(TAG, "Error fetching profile data", error.toException());
             }
         };
+    }
+
+    private void addAnimations(){
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(profileImage);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(name);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(phone);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(location);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(description);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(updateButton);
+
     }
 
     private void openAvatarDialog(){

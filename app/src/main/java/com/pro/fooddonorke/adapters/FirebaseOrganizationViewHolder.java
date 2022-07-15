@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,6 +53,22 @@ public class FirebaseOrganizationViewHolder extends RecyclerView.ViewHolder impl
         mNameTextView.setText(mRelief.getName());
         mTypeTextView.setText(mRelief.getType());
         mLocationTextView.setText(mRelief.getLocation());
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mNameTextView);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mTypeTextView);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mLocationTextView);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mOrganizationImageView);
     }
 
     @Override

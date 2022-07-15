@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pro.fooddonorke.R;
 
@@ -26,12 +28,28 @@ public class SplashScreen extends AppCompatActivity {
             splashImg = findViewById(R.id.splashImg);
             title = findViewById(R.id.title);
             statement = findViewById(R.id.statement);
-
             arrowButton = findViewById(R.id.arrowButton);
+
+            addAnimations();
+
             arrowButton.setOnClickListener(view -> {
                 Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                 startActivity(intent);
             });
 
+        }
+
+        private void addAnimations(){
+            YoYo.with(Techniques.Flash)
+                    .duration(700)
+                    .playOn(title);
+
+            YoYo.with(Techniques.Flash)
+                    .duration(700)
+                    .playOn(statement);
+
+            YoYo.with(Techniques.Flash)
+                    .duration(700)
+                    .playOn(arrowButton);
         }
     }
