@@ -23,7 +23,7 @@ public class Onboarding extends AppCompatActivity {
     LinearLayout layout;
 
     // declare the slider adapter variable
-    sliderAdapter sliderAdapter;
+    SliderAdapter sliderAdapter;
 
     // declare an array to contain the dots in our onboarding screen.
     TextView[] dots;
@@ -71,7 +71,7 @@ public class Onboarding extends AppCompatActivity {
         });
 
         // call the slider adapter
-        sliderAdapter = new sliderAdapter(this);
+        sliderAdapter = new SliderAdapter(this);
         viewPager.setAdapter(sliderAdapter);
 
         // we then call the addDots method

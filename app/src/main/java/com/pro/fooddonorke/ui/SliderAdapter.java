@@ -11,10 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.pro.fooddonorke.R;
 
 
-public class sliderAdapter extends PagerAdapter {
+public class SliderAdapter extends PagerAdapter {
     // the slider adapter will help us in sliding the images in our application.
 
     // declare the context variable
@@ -23,7 +24,7 @@ public class sliderAdapter extends PagerAdapter {
 
     // we go ahead and generate the constructor of the class
 
-    public sliderAdapter(Context mContext) {
+    public SliderAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -80,7 +81,7 @@ public class sliderAdapter extends PagerAdapter {
         TextView title = (TextView) view.findViewById(R.id.text_title);
 
         // Set the position for the images
-        imageView.setImageResource(images[position]);
+        Glide.with(mContext).asBitmap().load(images[position]).into(imageView);
         desc.setText(descriptions[position]);
         title.setText(headings[position]);
 
