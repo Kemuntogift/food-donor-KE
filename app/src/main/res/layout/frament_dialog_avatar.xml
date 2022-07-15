@@ -11,17 +11,16 @@
       android:layout_height="@dimen/larger_dimension"
       android:layout_marginStart="@dimen/default_margin"
       android:layout_marginEnd="@dimen/default_margin"
-      android:scaleType="fitCenter"
+      android:scaleType="centerCrop"
       app:layout_constraintEnd_toStartOf="@+id/guideline3"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_baseline_photo_camera"
-      app:tint="@color/food_donor_darker_blue"
+      app:srcCompat="@drawable/camera"
       android:contentDescription="@string/content_desc_camera_icon" />
 
   <ImageView
       android:id="@+id/gallery_icon"
-      android:layout_width="@dimen/larger_dimension"
+      android:layout_width="@dimen/larger_dimension_2"
       android:layout_height="@dimen/larger_dimension"
       android:layout_marginStart="@dimen/default_margin"
       android:layout_marginEnd="@dimen/default_margin"
@@ -29,8 +28,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@+id/guideline3"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_baseline_insert_photo"
-      app:tint="@color/food_donor_darker_blue"
+      app:srcCompat="@drawable/attach"
       android:contentDescription="@string/content_desc_gallery_icon"/>
 
   <androidx.constraintlayout.widget.Guideline

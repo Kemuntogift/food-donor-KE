@@ -28,6 +28,7 @@
           android:textColor="@color/food_donor_darker_blue" />
 
       <TextView
+          android:id="@+id/quote"
           style="@style/NormalTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
