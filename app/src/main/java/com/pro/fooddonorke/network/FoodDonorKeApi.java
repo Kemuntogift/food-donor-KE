@@ -16,8 +16,9 @@ public interface FoodDonorKeApi {
   Call<CharitiesSearchResponse> getCharitiesByLocation(@Query(Constants.LOCATION_QUERY_PARAMETER) String location);
 
   @GET("requests/locations")
-  Call<RequestsSearchResponse> getRequestsByLocation(@Query(Constants.LOCATION_QUERY_PARAMETER) String location);
+  Call<RequestsSearchResponse> getRequestsByLocation(
+          @Query(Constants.LOCATION_QUERY_PARAMETER) String location);
 
-  @GET("charities/:id")
+  @GET("charities/{id}")
   Call<CharityDetailResponse> getCharityDetails(@Path("id") String id);
 }

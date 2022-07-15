@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_2">
+
+  <com.google.android.material.chip.ChipGroup
+      android:id="@+id/donation_inputs"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin"
+      android:layout_marginTop="@dimen/triple_margin"
+      android:layout_marginEnd="@dimen/margin"
+      android:background="@drawable/multiline_input"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/dialog_title">
+
+  </com.google.android.material.chip.ChipGroup>
+
+  <TextView
+      android:id="@+id/dialog_title"
+      style="@style/BoldTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin"
+      android:layout_marginTop="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/margin"
+      android:text="@string/dialog_title"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/donation_input"
+      style="@style/TextInputLayoutStyle2"
+      android:layout_width="250dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin"
+      android:layout_marginTop="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/margin"
+      app:layout_constraintEnd_toStartOf="@id/btn_add"
+      app:layout_constraintHorizontal_chainStyle="spread"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/donation_inputs">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_donation"
+        android:inputType="text" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/btn_add"
+      style="@style/ImageButtonStyle"
+      android:layout_width="60dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_chainStyle="spread"
+      app:layout_constraintStart_toEndOf="@id/donation_input"
+      app:layout_constraintTop_toBottomOf="@id/donation_inputs"
+      app:srcCompat="@drawable/ic_baseline_add_24"
+      android:contentDescription="@string/content_desc_add_donation_item" />
+
+  <Button
+      android:id="@+id/btn_send_mail"
+      style="@style/ButtonStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin"
+      android:layout_marginTop="@dimen/triple_margin"
+      android:layout_marginEnd="@dimen/margin"
+      android:layout_marginBottom="@dimen/default_margin"
+      android:text="@string/send_mail"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/donation_input" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

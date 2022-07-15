@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/donor"
+    android:background="@drawable/background_image1"
     tools:context=".ui.SignupActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,6 +126,7 @@
 
                <TextView
                    android:id="@+id/signup_login_text_view"
+                   style="@style/NormalTextStyle"
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
                    android:layout_marginStart="@dimen/triple_margin"
@@ -135,11 +136,38 @@
                    android:text="@string/signup_login_text"
                    android:textColor="@color/white"
                    android:textAlignment="center"
-                   android:textStyle="bold"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintTop_toBottomOf="@+id/signup_btn"
                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+               <ProgressBar
+                   android:id="@+id/signUpProgressBar"
+                   android:layout_centerInParent="true"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   app:layout_constraintTop_toBottomOf="@id/confirmPasswordOutlinedTextField"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:layout_marginTop="@dimen/margin_eight_times"
+                   android:visibility="gone"
+                   />
+
+               <TextView
+                   android:id="@+id/signUpTextView"
+                   style="@style/NormalTextStyle"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   app:layout_constraintTop_toBottomOf="@id/signUpProgressBar"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   android:text="@string/signing_up"
+                   android:textColor="@color/white"
+                   android:layout_marginTop="@dimen/margin"
+                   android:layout_marginBottom="@dimen/triple_margin"
+                   android:visibility="gone"
+                   />
 
                <Button
                    android:id="@+id/signup_btn"

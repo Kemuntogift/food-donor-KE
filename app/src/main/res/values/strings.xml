@@ -79,4 +79,25 @@
     <string name="skip_btn">Skip</string>
     <string name="next_btn">Next</string>
     <string name="let_get_started">Lets Get Started</string>
+  <string name="signing_up">Signing up …</string>
+  <string name="loading">Loading …</string>
+  <string name="failure_message">Something went wrong. Please check your Internet connection and try again later</string>
+  <string name="unsuccessful_message">Something went wrong. Please try again later</string>
+  <string name="charities">Charities</string>
+  <string name="no_donations">No donations listed</string>
+  <string name="camera">Camera</string>
+  <string name="gallery">Gallery</string>
+  <string name="paused">Upload paused</string>
+  <string name="dialog_title">What would you like to donate?</string>
+  <string name="enter_donation">Enter your donation</string>
+  <string name="send_mail">Send Email</string>
+  <string name="content_desc_user_account_icon">User account icon</string>
+  <string name="content_desc_camera_icon">Camera icon to launch camera</string>
+  <string name="content_desc_gallery_icon">Gallery icon to launch gallery</string>
+  <string name="no_of_donations">0</string>
+  <string name="content_desc_add_donation_item">Button to  add donation items</string>
+  <string name="empty_input">Input required</string>
+  <string name="successful_verification">Verification email sent</string>
+  <string name="verification_prompt">Kindly verify your email before proceeding</string>
+  <string name="log_out">Log out</string>
 </resources>

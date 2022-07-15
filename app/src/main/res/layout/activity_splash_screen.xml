@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333"
-        app:srcCompat="@drawable/splashimage"
+        app:srcCompat="@drawable/background_image"
         android:contentDescription="@string/content_desc_background" />
 
     <TextView
@@ -27,7 +27,7 @@
         style="@style/BolderTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/triple_margin"
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="#FFFFFF"
@@ -45,8 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/triple_margin"
         android:layout_marginEnd="@dimen/triple_margin"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/poppins"
+        android:layout_marginBottom="@dimen/triple_margin"
         android:gravity="center_horizontal"
         android:text="@string/splash_subtitle"
         android:textColor="#FFFFFF"
@@ -56,6 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.658"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -65,7 +65,7 @@
         android:layout_marginBottom="@dimen/quadraple_margin"
         android:cropToPadding="false"
         android:src="@drawable/ic_baseline_arrow_right_alt_24"
-        app:fabSize="auto"
+        app:fabCustomSize="@dimen/larger_dimension_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

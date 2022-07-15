@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.pro.fooddonorke.R;
 import com.pro.fooddonorke.models.Charity;
 import com.pro.fooddonorke.ui.OrganizationDetailActivity;
@@ -72,6 +74,22 @@ public class OrganizationListAdapter extends RecyclerView.Adapter<OrganizationLi
             mNameTextView.setText(relief.getName());
             mTypeTextView.setText(relief.getType());
             mLocationTextView.setText(relief.getLocation());
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .playOn(mNameTextView);
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .playOn(mTypeTextView);
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .playOn(mLocationTextView);
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(700)
+                    .playOn(mOrganizationImageView);
         }
         @Override
         public void onClick(View v) {

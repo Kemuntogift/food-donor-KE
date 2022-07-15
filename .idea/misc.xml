@@ -4,13 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/color/dark_bg_stroke_color.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/baseline_language_24.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/btn.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/dark_bg_stroke_color.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/edittext.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/ic_baseline_account_circle.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/ic_baseline_business.xml" value="0.144" />
-        <entry key="app/src/main/res/drawable/ic_baseline_email.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_email.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable/ic_baseline_logout.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/login_bg_img.xml" value="0.178" />
         <entry key="app/src/main/res/drawable/multiline_input.xml" value="0.178" />

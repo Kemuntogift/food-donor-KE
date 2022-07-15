@@ -1,14 +1,17 @@
 package com.pro.fooddonorke.fragment;
 
-import static com.pro.fooddonorke.utilities.Constants.FIREBASE_CHILD_DONATIONS;
+import static java.lang.Integer.parseInt;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +21,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.divider.MaterialDivider;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pro.fooddonorke.R;
+import com.pro.fooddonorke.dialog.DonationDetailsDialogFragment;
 import com.pro.fooddonorke.models.Charity;
+import com.pro.fooddonorke.utilities.Constants;
 
 import org.parceler.Parcels;
 
@@ -39,19 +47,16 @@ import butterknife.ButterKnife;
 
 
 public class OrganizationDetailFragment extends Fragment implements View.OnClickListener{
-    public static final String FIREBASE_CHILD_RELIEFS = "reliefs";
-
     @BindView(R.id.org_image_detail) ImageView mOrganizationDetailImage;
     @BindView(R.id.org_name) TextView mOrganizationName;
-    @BindView(R.id.org_icon) ImageView mOrganizationIcon;
     @BindView(R.id.org_type) TextView mOrganizationType;
-    @BindView(R.id.location_icon) ImageView mLocationIcon;
     @BindView(R.id.org_location) TextView mOrganizationLocation;
-    @BindView(R.id.phone_image) ImageView mPhoneImage;
-    @BindView(R.id.twitter_image) ImageView mTwitterImage;
-    @BindView(R.id.facebook_image) ImageView mFacebookImage;
-    @BindView(R.id.instagram_image) ImageView mInstagramImage;
-    @BindView(R.id.mail_image) ImageView mEmailImage;
+    @BindView(R.id.phone_fab)
+    FloatingActionButton mPhoneFab;
+    @BindView(R.id.twitter_fab) FloatingActionButton mTwitterFab;
+    @BindView(R.id.facebook_fab) FloatingActionButton mFacebookFab;
+    @BindView(R.id.instagram_fab) FloatingActionButton mInstagramFab;
+    @BindView(R.id.web_fab) FloatingActionButton mWebFab;
     @BindView(R.id.divider) MaterialDivider mDivider;
     @BindView(R.id.food_donation_title) TextView mFoodDonationTitle;
     @BindView(R.id.food_donation_types) ChipGroup mFoodDonationType;
@@ -64,6 +69,8 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
 
 
     private Charity mRelief;
+    public static final String TAG = OrganizationDetailFragment.class.getSimpleName();
+    private DonationDetailsDialogFragment mDonationDetailsFragment;
 
     public OrganizationDetailFragment() {
         // Required empty public constructor
@@ -116,54 +123,147 @@ public class OrganizationDetailFragment extends Fragment implements View.OnClick
         }
 
         mDonateButton.setOnClickListener(this);
+        mPhoneFab.setOnClickListener(this);
+        mTwitterFab.setOnClickListener(this);
+        mFacebookFab.setOnClickListener(this);
+        mInstagramFab.setOnClickListener(this);
+        mWebFab.setOnClickListener(this);
+
+        addAnimations();
 
         return view;
     }
+
+    private void addAnimations(){
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mOrganizationName);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mOrganizationType);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mOrganizationLocation);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mPhoneFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mTwitterFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mInstagramFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mFacebookFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mWebFab);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mFoodDonationTitle);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mFoodDonationType);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mBriefDescription);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mImageOne);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mImageTwo);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mImageThree);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(mDonateButton);
+    }
+
     @Override
     public void onClick(View v) {
         if (v == mDonateButton) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String uid = Objects.requireNonNull(user).getUid();
-            String pushId = String.format(Locale.ENGLISH,"relief_%d", mRelief.getId());
-            DatabaseReference reliefRef = FirebaseDatabase
-                    .getInstance()
-                    .getReference(FIREBASE_CHILD_DONATIONS)
-                    .child(uid).child(pushId);
-
-            mRelief.setPushId(pushId);
-            reliefRef.setValue(mRelief).addOnCompleteListener(requireActivity(), insertTask -> {
-                if (insertTask.isSuccessful()){
-                    Toast.makeText(getContext(), "Thanks for donating!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), Objects.requireNonNull(insertTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
+              openDonationDetailsDialog();
+              saveToDatabase();
         }
 
         // Set implicit intents
-        if (v == mPhoneImage){
+        if (v == mPhoneFab){
             Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
                     Uri.parse("tel:" + mRelief.getContacts().getPhone()));
             startActivity(phoneIntent);
         }
 
-        if (v == mTwitterImage){
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+        if (v == mTwitterFab){
+            Intent twitterIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getTwitter()));
-            startActivity(webIntent);
+            startActivity(twitterIntent);
         }
 
-        if (v == mFacebookImage){
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+        if (v == mFacebookFab){
+            Intent facebookIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getFacebook()));
-            startActivity(webIntent);
+            startActivity(facebookIntent);
         }
 
-        if (v == mInstagramImage){
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+        if (v == mInstagramFab){
+            Intent instagramIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(mRelief.getContacts().getInstagram()));
+            startActivity(instagramIntent);
+        }
+
+        if (v == mWebFab){
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mRelief.getWebsite()));
             startActivity(webIntent);
         }
+    }
+
+    private void saveToDatabase(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = Objects.requireNonNull(user).getUid();
+
+        String pushId = String.format(Locale.ENGLISH,"relief_%d", mRelief.getId());
+
+        DatabaseReference reliefRef = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_DONATIONS)
+                .child(uid).child(pushId);
+
+        mRelief.setPushId(pushId);
+
+        // Begin interaction
+        reliefRef.setValue(mRelief).addOnCompleteListener(requireActivity(), insertTask -> {
+            if (insertTask.isSuccessful()){
+                Log.d(TAG, "Ongoing donation saved");
+            } else {
+                Toast.makeText(getContext(), Objects.requireNonNull(insertTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void openDonationDetailsDialog(){
+        // Initialize fragment manager that's responsible for adding, replacing, removing fragments dynamically
+        FragmentManager fragmentManager =((AppCompatActivity) requireActivity()).getSupportFragmentManager();
+        // Initialize the theme selection fragment
+        mDonationDetailsFragment = DonationDetailsDialogFragment.newInstance(mRelief.getContacts().getEmail());
+        // Display the theme selection fragment
+        mDonationDetailsFragment.show(fragmentManager, "Donation details dialog fragment");
     }
 }

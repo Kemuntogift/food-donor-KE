@@ -23,13 +23,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
       <LinearLayout
-          android:layout_width="@dimen/larger_margin_3"
-          android:layout_height="@dimen/larger_margin_3"
+          android:layout_width="@dimen/larger_dimension"
+          android:layout_height="@dimen/larger_dimension"
           android:background="@drawable/mybuttons"
           android:gravity="center"
           android:orientation="vertical">
 
         <TextView
+            style="@style/BoldTextStyle"
             android:id="@+id/no_of_charities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,39 +40,42 @@
             tools:text="2" />
 
         <TextView
+            style="@style/BoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ngo"
             android:textColor="@color/food_donor_darker_blue"
-            android:textSize="23sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/small_font_size"
+             />
 
       </LinearLayout>
 
       <LinearLayout
-          android:layout_width="@dimen/larger_margin_3"
-          android:layout_height="@dimen/larger_margin_3"
+          android:layout_width="@dimen/larger_dimension"
+          android:layout_height="@dimen/larger_dimension"
           android:layout_marginStart="@dimen/larger_margin_2"
           android:background="@drawable/mybuttons"
           android:gravity="center"
           android:orientation="vertical">
 
         <TextView
+            style="@style/BoldTextStyle"
             android:id="@+id/no_of_donations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/food_donor_darker_blue"
             android:textSize="30sp"
+            android:text="@string/no_of_donations"
             android:textStyle="bold"
-            tools:text="2" />
+             />
 
         <TextView
-            style="@style/BolderTextStyle"
+            style="@style/BoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/donations"
-            android:textColor="@color/food_donor_darker_blue" />
-
+            android:textColor="@color/food_donor_darker_blue"
+            android:textSize="@dimen/small_font_size"/>
       </LinearLayout>
     </LinearLayout>
 
@@ -81,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/organizations"
-        android:layout_marginTop="@dimen/triple_margin"
+        android:layout_marginTop="@dimen/quadraple_margin"
         android:textColor="@color/food_donor_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +94,7 @@
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/triple_margin"
+        android:layout_marginTop="@dimen/default_margin"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
       <androidx.recyclerview.widget.RecyclerView
@@ -99,20 +103,34 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/default_margin"
           android:layout_marginEnd="@dimen/default_margin"
+          android:visibility="gone"
           tools:listitem="@layout/item_organization_list" />
 
       <ProgressBar
           android:id="@+id/progressBarD"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_centerInParent="true"
-          android:visibility="gone" />
+          android:layout_centerInParent="true" />
+
+      <TextView
+          android:id="@+id/loadingTextViewD"
+          style="@style/NormalTextStyle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/progressBarD"
+          android:layout_marginTop="@dimen/default_margin"
+          android:gravity="center_horizontal"
+          android:text="@string/loading" />
 
       <TextView
           android:id="@+id/errorTextViewD"
+          style="@style/NormalTextStyle"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_centerInParent="true"
+          android:layout_alignParentTop="true"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentEnd="true"
+          android:gravity="center_horizontal"
           android:visibility="gone" />
 
     </RelativeLayout>

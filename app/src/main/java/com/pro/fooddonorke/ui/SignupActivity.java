@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,8 +16,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pro.fooddonorke.R;
+import com.pro.fooddonorke.utilities.Constants;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -25,6 +30,7 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = SignupActivity.class.getSimpleName();
     private String mName;
+    private String mEmail;
 
     @BindView(R.id.signup_btn) Button mCreateUserButton;
     @BindView(R.id.nameOutlinedTextField)
@@ -33,6 +39,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.passwordOutlinedTextField) TextInputLayout mPasswordEditText;
     @BindView(R.id.confirmPasswordOutlinedTextField) TextInputLayout mConfirmPasswordEditText;
     @BindView(R.id.signup_login_text_view) TextView mLoginTextView;
+    @BindView(R.id.signUpProgressBar)
+    ProgressBar mSignUpProgressBar;
+    @BindView(R.id.signUpTextView)
+    TextView mLoadingSignUp;
 
     private FirebaseAuth mAuth;
 
@@ -47,39 +57,48 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         mLoginTextView.setOnClickListener(this);
         mCreateUserButton.setOnClickListener(this);
-
-
     }
     @Override
     public void onClick(View view) {
         if (view == mLoginTextView) {
-            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+            redirectToLogin();
         }
 
         if (view == mCreateUserButton) {
             createNewUser();
+            showProgressBar();
         }
+    }
+
+    private void redirectToLogin(){
+        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void createNewUser() {
         mName = Objects.requireNonNull(mNameEditText.getEditText()).getText().toString().trim();
-        final String email = Objects.requireNonNull(mEmailEditText.getEditText()).getText().toString().trim();
+        mEmail = Objects.requireNonNull(mEmailEditText.getEditText()).getText().toString().trim();
         String password = Objects.requireNonNull(mPasswordEditText.getEditText()).getText().toString().trim();
         String confirmPassword = Objects.requireNonNull(mConfirmPasswordEditText.getEditText()).getText().toString().trim();
 
-        boolean validEmail = isValidEmail(email);
+        boolean validEmail = isValidEmail(mEmail);
         boolean validName = isValidName(mName);
         boolean validPassword = isValidPassword(password, confirmPassword);
-        if (!validEmail || !validName || !validPassword) return;
+        if (!validEmail || !validName || !validPassword) {
+            hideProgressBar();
+            return;
+        }
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+        mAuth.createUserWithEmailAndPassword(mEmail, password).addOnCompleteListener(this, task -> {
+            hideProgressBar();
             if (task.isSuccessful()){
+                final FirebaseUser user = task.getResult().getUser();
                 Log.d(TAG, "Registration successful");
-                createFirebaseUserProfile(Objects.requireNonNull(task.getResult().getUser()));
-                FirebaseAuth.getInstance().signOut();
+                verifyEmail(Objects.requireNonNull(user));
+                createFirebaseUserProfile(Objects.requireNonNull(user));
+                setUpDonationCount(user);
             }else {
                 Toast.makeText(SignupActivity.this,"Registration failed."+ Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -116,6 +135,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
+    private void setUpDonationCount(FirebaseUser user){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_DONATIONS_STATS).child(user.getUid());
+
+        HashMap<String, String> donationCount = new HashMap<>();
+        donationCount.put(Constants.DONATIONS_STAT_FIELD, String.valueOf(0));
+
+        reference.setValue(donationCount).addOnCompleteListener(this, insertTask -> {
+            if (insertTask.isSuccessful()){
+                Log.d(TAG, "Initial donation count set");
+                FirebaseAuth.getInstance().signOut();
+                redirectToLogin();
+            } else {
+                Log.d(TAG, "Initial donation count not set", insertTask.getException());
+            }
+        });
+    }
+
     private void createFirebaseUserProfile(final FirebaseUser user) {
 
         UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
@@ -128,5 +164,36 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(SignupActivity.this, "The display name has ben set", Toast.LENGTH_LONG).show();
                     }
                 });
+
+        user.updateEmail(mEmail).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                Log.d(TAG, "Email has been updated");
+            }
+        });
+    }
+
+    private void verifyEmail(FirebaseUser user){
+        user.sendEmailVerification().addOnCompleteListener(this, verifyTask -> {
+            if (verifyTask.isSuccessful()){
+                Toast.makeText(getApplicationContext(), R.string.successful_verification, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), Objects.requireNonNull(verifyTask.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Error sending email verification", verifyTask.getException());
+            }
+        });
+    }
+
+    private void showProgressBar() {
+        mSignUpProgressBar.setVisibility(View.VISIBLE);
+        mLoadingSignUp.setVisibility(View.VISIBLE);
+        mCreateUserButton.setVisibility(View.GONE);
+        mLoginTextView.setVisibility(View.GONE);
+    }
+
+    private void hideProgressBar() {
+        mSignUpProgressBar.setVisibility(View.GONE);
+        mLoadingSignUp.setVisibility(View.GONE);
+        mCreateUserButton.setVisibility(View.VISIBLE);
+        mLoginTextView.setVisibility(View.VISIBLE);
     }
 }

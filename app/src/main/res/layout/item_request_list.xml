@@ -7,11 +7,10 @@
 
   <com.google.android.material.imageview.ShapeableImageView
       android:id="@+id/org_image"
-      android:layout_width="0dp"
-      android:layout_height="@dimen/list_image_height"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
       android:layout_marginTop="@dimen/triple_margin"
-      android:layout_marginEnd="@dimen/default_margin"
-      android:background="@color/food_donor_grey"
+      android:layout_marginEnd="@dimen/quadraple_margin"
       android:scaleType="centerCrop"
       app:layout_constraintEnd_toStartOf="@+id/guideline2"
       app:layout_constraintStart_toStartOf="parent"
@@ -76,19 +75,16 @@
 
   <ImageView
       android:id="@+id/location_icon2"
-      android:layout_width="30dp"
-      android:layout_height="20dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/default_margin"
       android:layout_marginEnd="@dimen/margin"
       android:layout_marginBottom="@dimen/default_margin"
       android:contentDescription="@string/content_desc_location"
-      app:layout_constraintBottom_toTopOf="@id/divider"
       app:layout_constraintEnd_toStartOf="@+id/org_location"
-      app:layout_constraintHorizontal_bias="1.0"
-      app:layout_constraintStart_toStartOf="@+id/guideline2"
       app:layout_constraintTop_toBottomOf="@+id/org_type"
-      app:layout_constraintVertical_bias="0.571"
-      app:srcCompat="@drawable/pin" />
+      app:layout_constraintBottom_toTopOf="@id/divider"
+      app:srcCompat="@drawable/ic_baseline_location" />
 
   <androidx.constraintlayout.widget.Barrier
       android:id="@+id/barrier2"

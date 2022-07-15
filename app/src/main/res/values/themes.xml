@@ -29,6 +29,13 @@
     <item name="android:textSize">@dimen/normal_font_size</item>
     <item name="android:textStyle">normal</item>
     <item name="fontFamily">sans-serif-condensed</item>
+    <item name="android:textColor">@color/food_donor_black</item>
+  </style>
+
+  <style name="ImageButtonStyle">
+    <item name="cornerRadius">@dimen/button_radius</item>
+    <item name="backgroundTint">@color/food_donor_blue</item>
+    <item name="android:padding">@dimen/padding_2</item>
   </style>
 
   <style name="BoldTextStyle" parent="NormalTextStyle">
@@ -78,7 +85,11 @@
   </style>
 
   <style name="RoundedCornersStyle">
-    <item name="cornerSize">10%</item>
+    <item name="cornerSize">12%</item>
+  </style>
+
+  <style name="CircularImageStyle">
+    <item name="cornerSize">50%</item>
   </style>
 
   <style name="TextInputLayoutStyle2" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -86,5 +97,7 @@
     <item name="android:textAppearance">@style/NormalTextStyle</item>
   </style>
 
-
+  <style name="InputChipStyle" parent="Widget.MaterialComponents.Chip.Entry">
+    <item name="android:textAppearance">@style/NormalTextStyle</item>
+  </style>
 </resources>
